@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <limits.h>
 
-int print_HEX(unsigned int input)
+int print_oct(unsigned int input)
 {
 	unsigned int copy, len = 0;
 	int i = 0;
 	int *buffer;
-	char search[] = "0123456789ABCDEF";
+	char search[] = "01234567";
 
 	if (input == 0)
 	{
@@ -18,7 +18,7 @@ int print_HEX(unsigned int input)
 	copy = input;
 	while (copy)
 	{
-		copy /= 16;
+		copy /= 8;
 		len++;
 	}
 
@@ -26,8 +26,8 @@ int print_HEX(unsigned int input)
 
 	while (input)
 	{
-		buffer[i] = input % 16;
-		input /= 16;
+		buffer[i] = input % 8;
+		input /= 8;
 		i++;
 	}
 
@@ -35,6 +35,7 @@ int print_HEX(unsigned int input)
 		putchar(search[buffer[i]]);
 
 	free(buffer);
+
 	return (len);
 }
 int main(void)
@@ -42,14 +43,14 @@ int main(void)
 	unsigned int ui = (unsigned int)INT_MAX + 1024;
 
 	/*using created function*/
-	printf("\nlen: %d\n", print_HEX(16));
+	printf("\nlen: %d\n", print_oct(12));
 	/*using printf*/
-	printf("\nlen: %d\n", printf("%X", 16));
+	printf("\nlen: %d\n", printf("%o", 12));
 
 	putchar('\n');
 
 	/*using created function*/
-	printf("\nlen: %d\n", print_HEX(ui));
+	printf("\nlen: %d\n", print_oct(ui));
 	/*using printf*/
-	printf("\nlen: %d\n", printf("%X", ui));
+	printf("\nlen: %d\n", printf("%o", ui));
 }
