@@ -1,17 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
+#include "main.h"
 
-int print_oct(unsigned int input)
+/**
+ * print_oct - prints in octal format
+ * @ap: pointer to argument list
+ *
+ * Return: octal length
+ */
+
+int print_oct(va_list ap)
 {
 	unsigned int copy, len = 0;
 	int i = 0;
 	int *buffer;
 	char search[] = "01234567";
+	unsigned int input = va_arg(ap, unsigned int);
 
 	if (input == 0)
 	{
-		putchar ('0');
+		_putchar ('0');
 		return (1);
 	}
 
@@ -23,6 +29,8 @@ int print_oct(unsigned int input)
 	}
 
 	buffer = (int *)malloc(sizeof(int) * len);
+	if (buffer == NULL)
+		return (-1);
 
 	while (input)
 	{
@@ -32,25 +40,8 @@ int print_oct(unsigned int input)
 	}
 
 	for (i = len - 1; i >= 0; i--)
-		putchar(search[buffer[i]]);
+		_putchar(search[buffer[i]]);
 
 	free(buffer);
-
 	return (len);
-}
-int main(void)
-{
-	unsigned int ui = (unsigned int)INT_MAX + 1024;
-
-	/*using created function*/
-	printf("\nlen: %d\n", print_oct(12));
-	/*using printf*/
-	printf("\nlen: %d\n", printf("%o", 12));
-
-	putchar('\n');
-
-	/*using created function*/
-	printf("\nlen: %d\n", print_oct(ui));
-	/*using printf*/
-	printf("\nlen: %d\n", printf("%o", ui));
 }
