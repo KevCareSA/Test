@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <limits.h>
 /**
  * print_unsigned_integers - a function that prints unsigned intergers.
  * @arr: array of unsigned integers.
@@ -8,13 +8,9 @@
  * Return: return the length of a string.
  */
 
-int print_unsigned_integers(unsigned int arr[], int size)
+int print_unsigned_integers(unsigned int num)
 {
 	int i, count = 0;
-
-	for (i = 0; i < size; i++)
-	{
-		unsigned int num = arr[i];
 
 		while (num > 0)
 		{
@@ -22,11 +18,6 @@ int print_unsigned_integers(unsigned int arr[], int size)
 			num /= 10;
 			count++;
 		}
-		putchar(' ');
-		count++;
-	}
-
-	putchar('\n');
 
 	return (count);
 }
@@ -40,11 +31,11 @@ int print_unsigned_integers(unsigned int arr[], int size)
 
 int main(void)
 {
-	unsigned int my_array[] = { 10, 20, 30, 40, 50 };
-	int size = sizeof(my_array) / sizeof(my_array[0]);
-	int str_len = print_unsigned_integers(my_array, size);
+	unsigned int num = (unsigned int)INT_MAX + 1024;
+	int str_len = print_unsigned_integers(num);
 
 	printf("Length of resulting string: %d\n", str_len);
+	printf("%u", num);
 
 	return (0);
 }
