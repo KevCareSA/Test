@@ -1,4 +1,4 @@
-.HT 0x11. C - printf 1 2023-03-28
+.TH printf 3 2023-03-28 GNU
 
 .SH NAME
 _printf \- printf function
