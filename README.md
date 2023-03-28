@@ -154,3 +154,8 @@ rot13 decoded: C is fun
 String with hidden characters: Date: 22/02/2002\n
 String with hidden characters: Date: 22/02/2002\x0A
 ```
+
+## Authors
+
+* [Bradley Dillion Gilden](https://github.com/BradleyGilden)
+* [Lebohang Kevcare Mokobane](https://github.com/KevCareSA)
