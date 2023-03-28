@@ -1,4 +1,4 @@
-.TH printf 3 2023-03-28 GNU
+ printf 3 2023-03-28 GNU
 
 .SH NAME
 _printf \- printf function
@@ -13,9 +13,9 @@ _printf \- printf function
 
 .SH DESCRIPTION 
 .B _printf 
-.RB Print ARGUMENT(s) according to FORMAT, or execute according to OPTION:
+.RB "Print ARGUMENT(s) according to FORMAT, or execute according to OPTION:"
 
- FORMAT controls the output as in C _printf.  Interpreted sequences are:
+ FORMAT controls the output as in C _printf. Interpreted sequences are:
 
        \n     new line
        %%     prints a single %
