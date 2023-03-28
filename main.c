@@ -12,6 +12,7 @@ int main(void)
 	int len;
 	int len2;
 	unsigned int ui = (unsigned int)INT_MAX + 1024;
+	void *addr = (void *)0x7ffe637541f0;
 
 	len = _printf("Let's try to printf a simple sentence.\n");
 	len2 = printf("Let's try to printf a simple sentence.\n");
@@ -35,7 +36,16 @@ int main(void)
     printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
 	_printf("Unsigned octal:[%o]\n", ui);
     printf("Unsigned octal:[%o]\n", ui);
-
+	len = _printf("Address:[%p]\n", addr);
+    len2 = printf("Address:[%p]\n", addr);
+	_printf("Len:[%d]\n", len);
+	printf("Len:[%d]\n", len2);
+    _printf("Reverse:[%r]\n", "Hello World");
+    printf("Reverse:[Hello World]\n");
+	printf("rot13 encoded: P vf sha\n");
+	_printf("rot13 decoded: %R\n", "P vf sha");
+	printf("String with hidden characters: Date: 22/02/2002\\n\n");
+	_printf("String with hidden characters: Date: %S\n", "22/02/2002\n");
 
 	return (0);
 }
