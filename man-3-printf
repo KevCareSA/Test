@@ -11,11 +11,14 @@ _printf \- printf function
 [\fB\-v\fR]
 [\fB\-\-version\fR]
 
+.SH PROTOTYPE
+int printf(const char *format, ...)
+
 .SH DESCRIPTION 
 .B _printf 
 .RB "Print ARGUMENT(s) according to FORMAT, or execute according to OPTION:"
 
- FORMAT controls the output as in C _printf. Interpreted sequences are:
+ FORMAT controls the output as in C printf. Interpreted sequences are:
 
     \n	        new line
     %%	     prints a single %
@@ -29,7 +32,7 @@ _printf \- printf function
     %u	     prints argument provided in unsigned interger format.
     %i	     prints argument provided in interger format.
     %o	     prints argument provided in octal format.
-    %S	     prints out string literals but also shows hidden character output as "\x"%02X	 
+    %S	     prints out string literals but also shows hidden character output as "\\x"%02X	 
 
 
 .SH AUTHORS 
