@@ -1,0 +1,27 @@
+#include "main.h"
+
+void handle_sigint(int __attribute__((unused))sig)
+{
+	getsigint = 1;
+}
+
+void handle_sigstp(int __attribute__((unused))sig)
+{
+	getsigstp = 1;
+}
+
+void signals_exec(void)
+{
+	if (getsigint)
+	{
+        kill(0, SIGINT);
+        getsigint = 0;
+		exit_stat = SIGINT + 128;
+	}
+
+	if (getsigstp)
+	{
+		getsigstp = 0;
+		kill(getpid(), SIGSTOP);
+	}
+}
