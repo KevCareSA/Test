@@ -4,19 +4,19 @@
 
 void insertion_sort_array(int *array, size_t size)
 {
-    size_t i, j;
-    int temp;
+	size_t i, j;
+	int temp;
 
-    for (i = 1; i < size; i++)
-    {
-        for(j = i; j > 0 && array[j - 1] > array[j]; j--)
-        {
-            temp = array[j];
-            array[j] = array[j - 1];
-            array[j - 1] = temp;
-            print_array(array, size);
-        }
-    }
+	for (i = 1; i < size; i++)
+	{
+		for(j = i; j > 0 && array[j - 1] > array[j]; j--)
+		{
+			temp = array[j];
+			array[j] = array[j - 1];
+			array[j - 1] = temp;
+			print_array(array, size);
+		}
+	}
 }
 
 /**
@@ -29,25 +29,25 @@ void insertion_sort_array(int *array, size_t size)
  */
 listint_t *create_listint(const int *array, size_t size)
 {
-    listint_t *list;
-    listint_t *node;
-    int *tmp;
+	listint_t *list;
+	listint_t *node;
+	int *tmp;
 
-    list = NULL;
-    while (size--)
-    {
-        node = malloc(sizeof(*node));
-        if (!node)
-            return (NULL);
-        tmp = (int *)&node->n;
-        *tmp = array[size];
-        node->next = list;
-        node->prev = NULL;
-        list = node;
-        if (list->next)
-            list->next->prev = list;
-    }
-    return (list);
+	list = NULL;
+	while (size--)
+	{
+		node = malloc(sizeof(*node));
+		if (!node)
+			return (NULL);
+		tmp = (int *)&node->n;
+		*tmp = array[size];
+		node->next = list;
+		node->prev = NULL;
+		list = node;
+		if (list->next)
+			list->next->prev = list;
+	}
+	return (list);
 }
 
 /**
@@ -57,20 +57,23 @@ listint_t *create_listint(const int *array, size_t size)
  */
 int main(void)
 {
-    listint_t *list;
-    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
-    size_t n = sizeof(array) / sizeof(array[0]);
+	listint_t *list;
+	int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
+	size_t n = sizeof(array) / sizeof(array[0]);
 
-    // print_array(array, n);
-    // printf("\n");
-    // insertion_sort_array(array, n);
-    // printf("\n");
-    // print_array(array, n);
+	/*print_array(array, n);
+	printf("\n");
+	insertion_sort_array(array, n);
+	printf("\n");
+	print_array(array, n); */
 
-    list = create_listint(array, n);
-    print_list(list);
-
-
-    insertion_sort_list(&list);
-    return (0);
+	list = create_listint(array, n);
+	if (!list)
+		return (1);
+	print_list(list);
+	printf("\n");
+	insertion_sort_list(&list);
+	printf("\n");
+	print_list(list);
+	return (0);
 }
