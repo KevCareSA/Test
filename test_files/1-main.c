@@ -2,6 +2,23 @@
 #include <stdlib.h>
 #include "../sort.h"
 
+void insertion_sort_array(int *array, size_t size)
+{
+    size_t i, j;
+    int temp;
+
+    for (i = 1; i < size; i++)
+    {
+        for(j = i; j > 0 && array[j - 1] > array[j]; j--)
+        {
+            temp = array[j];
+            array[j] = array[j - 1];
+            array[j - 1] = temp;
+            print_array(array, size);
+        }
+    }
+}
+
 /**
  * create_listint - Creates a doubly linked list from an array of integers
  *
@@ -43,6 +60,12 @@ int main(void)
     listint_t *list;
     int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
     size_t n = sizeof(array) / sizeof(array[0]);
+
+    // print_array(array, n);
+    // printf("\n");
+    // insertion_sort_array(array, n);
+    // printf("\n");
+    // print_array(array, n);
 
     list = create_listint(array, n);
     print_list(list);

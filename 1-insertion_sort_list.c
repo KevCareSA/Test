@@ -7,32 +7,34 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *ptr, *back= NULL;
+	listint_t *i, *j = NULL, *ahead = NULL, *behind = NULL;
 
 	if (list == NULL || *list == NULL)
 		return;
 
-	ptr = *list;
+	i = (*list)->next;
 
-	while (ptr != NULL)
+	while (i != NULL)
 	{   
-		back = ptr;
-		printf("outside swap %d\n", back->n);
-		while (back->prev != NULL && back->n < back->prev->n)
+		j = i;
+		while (j->prev != NULL && j->prev->n > j->n)
 		{
-			if (back->prev != NULL)
-				back->prev->next = back->next;
-			if (back->next != NULL)
-				back->next->prev = back->prev;
-			back->next = back->prev;
-			back->prev = back->prev->prev;
-			back->next->prev = back;
+			ahead = j->next;
+			behind = j->prev;
 
-			back = back->prev;
-			*list = back;
-			printf("inside swap %d\n", back->n);
+            j->next = behind;
+            j->prev = behind->prev;
+            if (behind->prev != NULL)
+                behind->prev->next = j;
+            behind->prev = j;
+            behind->next = ahead;
+            if (ahead != NULL)
+                ahead->prev = behind;
+            if (j->prev == NULL)
+                *list = j;
+            print_list(*list);;
 		}
-		ptr = ptr->next;
+		i = i->next;
 	}
 
 }
