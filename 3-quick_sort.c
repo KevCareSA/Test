@@ -7,28 +7,33 @@
  * @end: end of array/sub-array
  * @size: size of the array
  */
-size_t lamuto_partition(int *array, size_t start, size_t end, size_t size)
+int lamuto_partition(int *array, int start, int end, size_t size)
 {
-	size_t j, i = start;
-	int  temp, pivot = array[end];
+	int temp;
+	int j, i = start;
+	int pivot = array[end];
 
 	for (j = start; j < end; j++)
 	{
 		if (array[j] <= pivot)
 		{
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-			print_array(array, size);
+			if (i != j)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 			i++;
 		}
 	}
-
-	temp = array[i];
-	array[i] = array[end];
-	array[end] = temp;
-	print_array(array, size);
-
+	if (i != end)
+	{
+		temp = array[i];
+		array[i] = array[end];
+		array[end] = temp;
+		print_array(array, size);
+	}
 	return (i);
 }
 
@@ -39,9 +44,9 @@ size_t lamuto_partition(int *array, size_t start, size_t end, size_t size)
  * @end: end of array/sub-array
  * @size: size of the array
  */
-void quick_sort_init(int *array, size_t start, size_t end, size_t size)
+void quick_sort_init(int *array, int start, int end, size_t size)
 {
-	size_t pivot_index;
+	int pivot_index;
 
 	if (start < end)
 	{
@@ -58,7 +63,7 @@ void quick_sort_init(int *array, size_t start, size_t end, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL)
+	if (array == NULL || size < 2)
 		return;
 
 	quick_sort_init(array, 0, size - 1, size);
