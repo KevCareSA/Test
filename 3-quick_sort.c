@@ -7,7 +7,7 @@
  * @end: end of array/sub-array
  * @size: size of the array
  */
-int lamuto_partition(int *array, int start, int end, size_t size)
+int lomuto_partition(int *array, int start, int end, size_t size)
 {
 	int temp;
 	int j, i = start;
@@ -50,7 +50,7 @@ void quick_sort_init(int *array, int start, int end, size_t size)
 
 	if (start < end)
 	{
-		pivot_index = lamuto_partition(array, start, end, size);
+		pivot_index = lomuto_partition(array, start, end, size);
 		quick_sort_init(array, start, pivot_index - 1, size);
 		quick_sort_init(array, pivot_index + 1, end, size);
 	}
