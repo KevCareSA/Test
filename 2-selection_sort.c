@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * selection_sort - function implements bubble sort algorithm
+ * selection_sort - function implements selection sort algorithm
  * @array: array to sort
  * @size: size of the array
  */
