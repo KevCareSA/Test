@@ -15,24 +15,24 @@ void insertion_sort_list(listint_t **list)
 	i = (*list)->next;
 
 	while (i != NULL)
-	{   
+	{
 		j = i;
 		while (j->prev != NULL && j->prev->n > j->n)
 		{
 			ahead = j->next;
 			behind = j->prev;
 
-            j->next = behind;
-            j->prev = behind->prev;
-            if (behind->prev != NULL)
-                behind->prev->next = j;
-            behind->prev = j;
-            behind->next = ahead;
-            if (ahead != NULL)
-                ahead->prev = behind;
-            if (j->prev == NULL)
-                *list = j;
-            print_list(*list);;
+			j->next = behind;
+			j->prev = behind->prev;
+			if (behind->prev != NULL)
+				behind->prev->next = j;
+			behind->prev = j;
+			behind->next = ahead;
+			if (ahead != NULL)
+				ahead->prev = behind;
+			if (j->prev == NULL)
+				*list = j;
+			print_list(*list);
 		}
 		i = i->next;
 	}
