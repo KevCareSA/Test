@@ -1,11 +1,12 @@
 #include "sort.h"
 
 /**
- * lamuto_partition - function implements lamuto algorithm
+ * lomuto_partition - function implements lomuto algorithm
  * @array: array to sort
  * @start: start of array/sub-array
  * @end: end of array/sub-array
  * @size: size of the array
+ * Return: the index of the new pivot
  */
 int lomuto_partition(int *array, int start, int end, size_t size)
 {
