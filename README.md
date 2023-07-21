@@ -1,4 +1,12 @@
-# Big O notation ~ *"how code slows as data grows"*
+# Sorting Algorithms and Time Complexity
+
+This repository contains implementations of various sorting algorithms in C language using arrays and linked lists
+
+## Directory Files:
+
+## Algorithms Used:
+
+## Big O notation ~ *"how code slows as data grows"*
 
 * Describes the performance of an algorithm as the amount of data increases
 * Machine independant
