@@ -27,6 +27,8 @@ void selection_sort(int *array, size_t size);
 
 /*Recursive Array sorting algorithms*/
 void quick_sort(int *array, size_t size);
+int lomuto_partition(int *array, int start, int end, size_t size);
+void quick_sort_init(int *array, int start, int end, size_t size);
 
 /*List sorting algorithms*/
 void insertion_sort_list(listint_t **list);
