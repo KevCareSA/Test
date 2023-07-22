@@ -33,6 +33,9 @@ void quick_sort_init(int *array, int start, int end, size_t size);
 
 /*List sorting algorithms*/
 void insertion_sort_list(listint_t **list);
+
 void cocktail_sort_list(listint_t **list);
+void cocktail_swap_forward(listint_t **list, listint_t *j);
+void cocktail_swap_backward(listint_t **list, listint_t *j);
 
 #endif /*SORT_H*/

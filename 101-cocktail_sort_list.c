@@ -1,5 +1,10 @@
 #include "sort.h"
 
+/**
+ * cocktail_swap_forward - swaps j and element ahead of j
+ * @list: pointer to the adress of the head node
+ * @j: element to swap
+ */
 void cocktail_swap_forward(listint_t **list, listint_t *j)
 {
 	listint_t *ahead = NULL, *behind = NULL;
@@ -14,10 +19,15 @@ void cocktail_swap_forward(listint_t **list, listint_t *j)
 	ahead->prev = behind;
 	if (behind != NULL)
 		behind->next = ahead;
-	if(ahead->prev == NULL)
+	if (ahead->prev == NULL)
 		*list = ahead;
 }
 
+/**
+ * cocktail_swap_backward - swaps j and element behind j
+ * @list: pointer to the adress of the head node
+ * @j: element to swap
+ */
 void cocktail_swap_backward(listint_t **list, listint_t *j)
 {
 	listint_t *ahead = NULL, *behind = NULL;
@@ -32,7 +42,7 @@ void cocktail_swap_backward(listint_t **list, listint_t *j)
 	ahead->next = behind;
 	if (behind != NULL)
 		behind->prev = ahead;
-	if(j->prev == NULL)
+	if (j->prev == NULL)
 		*list = j;
 }
 
@@ -45,16 +55,17 @@ void cocktail_sort_list(listint_t **list)
 {
 	listint_t *i, *j = NULL;
 	int len = 0, sorted = 1, index;
+
 	if (list == NULL || *list == NULL)
 		return;
 
 	for (i = *list; i != NULL; i = i->next)
 		len++;
 
-	for(index = 0; index < len && sorted; index++)
+	for (index = 0; index < len && sorted; index++)
 	{
 		sorted = 0;
-		for(j = *list; j->next != NULL;)
+		for (j = *list; j->next != NULL;)
 		{
 			if (j->n > j->next->n)
 			{
@@ -65,9 +76,9 @@ void cocktail_sort_list(listint_t **list)
 			}
 			j = j->next;
 		}
-		for(; j->prev != NULL;)
+		for (; j->prev != NULL;)
 		{
-			if(j->n < j->prev->n)
+			if (j->n < j->prev->n)
 			{
 				cocktail_swap_backward(list, j);
 				print_list(*list);
