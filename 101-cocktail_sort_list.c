@@ -16,7 +16,24 @@ void cocktail_swap_forward(listint_t **list, listint_t *j)
 		behind->next = ahead;
 	if(ahead->prev == NULL)
 		*list = ahead;
+}
 
+void cocktail_swap_backward(listint_t **list, listint_t *j)
+{
+	listint_t *ahead = NULL, *behind = NULL;
+
+	ahead = j->prev;
+	behind = j->next;
+	if (ahead->prev != NULL)
+		ahead->prev->next = j;
+	j->prev = ahead->prev;
+	j->next = ahead;
+	ahead->prev = j;
+	ahead->next = behind;
+	if (behind != NULL)
+		behind->prev = ahead;
+	if(j->prev == NULL)
+		*list = j;
 }
 
 /**
@@ -27,21 +44,20 @@ void cocktail_swap_forward(listint_t **list, listint_t *j)
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *i, *j = NULL;
-	int count = 0, sorted = 1;
+	int len = 0, sorted = 1, index;
 	if (list == NULL || *list == NULL)
 		return;
-	i = *list;
 
-	while(i != NULL && sorted)
+	for (i = *list; i != NULL; i = i->next)
+		len++;
+
+	for(index = 0; index < len && sorted; index++)
 	{
 		sorted = 0;
-		j = *list;
-		while(j->next != NULL)
+		for(j = *list; j->next != NULL;)
 		{
 			if (j->n > j->next->n)
 			{
-				if (j == i)
-					i = j->next;
 				cocktail_swap_forward(list, j);
 				print_list(*list);
 				sorted = 1;
@@ -49,12 +65,16 @@ void cocktail_sort_list(listint_t **list)
 			}
 			j = j->next;
 		}
-		while(j != i)
+		for(; j->prev != NULL;)
 		{
-
+			if(j->n < j->prev->n)
+			{
+				cocktail_swap_backward(list, j);
+				print_list(*list);
+				sorted = 1;
+				continue;
+			}
+			j = j->prev;
 		}
-		i = i->next;
-		count++;
 	}
-	printf("\n%d\n\n", count);
 }

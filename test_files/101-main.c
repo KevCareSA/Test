@@ -74,7 +74,7 @@ void cocktail_sort(int *array, size_t size)
 int main(void)
 {
     listint_t *list;
-    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
+    int array[] = {71, 76, 86, 37, 45, 33, 3, 79, 29, 21, 57, 98, 61, 63, 67, 2, 13, 59, 80, 18, 40};
     size_t n = sizeof(array) / sizeof(array[0]);
 
 	/*
