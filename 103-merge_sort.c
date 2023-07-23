@@ -38,9 +38,9 @@ void merge(int *aux, int *arr, int start, int middle, int end)
 	for (k = start; k < end; k++)
 	{
 		if (k + 1 == end)
-			printf("%d\n", arr[k]);
+			printf("%d\n", aux[k]);
 		else
-			printf("%d ", arr[k]);
+			printf("%d ", aux[k]);
 	}
 }
 
