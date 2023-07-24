@@ -82,7 +82,8 @@ void topdown_merge_sort(int *aux, int *arr, int start, int end)
  */
 void merge_sort(int *array, size_t size)
 {
-	int *copy, i;
+	int *copy;
+	size_t i;
 
 	if (array == NULL || size < 2)
 		return;
