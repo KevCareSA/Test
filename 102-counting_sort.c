@@ -51,7 +51,7 @@ void counting_sort(int *array, size_t size)
 	int *ca, *copy;
 	size_t i, max;
 
-	if (array == NULL)
+	if (array == NULL || size < 2)
 		return;
 	/*initialize counting array*/
 	ca = count_arr(array, size, &max, &copy);
