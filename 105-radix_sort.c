@@ -61,8 +61,8 @@ void radix_count_arr(int *arr, int *copy, int *ca, size_t size, int pval)
 	/*cumulative count on the counting array*/
 	for (i = 1; i < 10; i++)
 		ca[i] += ca[i - 1];
-
-	for (i = 0; i < size; i++)
+	/*loop in reverse to preserve the order of the  radix sorting algorithm*/
+	for (i = size - 1; (int)i >= 0; i--)
 	{
 		arr[ca[p_value(copy[i], pval)] - 1] = copy[i];
 		ca[p_value(copy[i], pval)] -= 1;
