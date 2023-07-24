@@ -35,16 +35,6 @@ int p_value(int value, int count)
 	return (pval);
 }
 
-/**
- * count_arr - finds the maximum integer and initializes counting array
-               of size (k + 1) with 0 for each element, where k is the
-               maximum integer of {array}
- * @array: array to sort
- * @size: size of the array
- * @max: maximum integer in {array}
- * @copy: copy of {array}
- * Return: returns pointer to counting array
- */
 void radix_count_arr(int *arr, int *copy, int *ca, size_t size, int pval)
 {
 	size_t i;
