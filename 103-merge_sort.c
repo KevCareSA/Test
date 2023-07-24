@@ -1,5 +1,13 @@
 #include "sort.h"
 
+/**
+ * merge - merges aux into arr
+ * @arr: array to sort
+ * @aux: auxillary array, deals with temporary sorting and storing of elements
+ * @start: starting index of array/sub-array
+ * @middle: where the left sub-array ends and the right sub-array begins
+ * @end: the size of the array/sub-array
+ */
 void merge(int *aux, int *arr, int start, int middle, int end)
 {
 	int k, i = start, j = middle;
@@ -44,6 +52,13 @@ void merge(int *aux, int *arr, int start, int middle, int end)
 	}
 }
 
+/**
+ * topdown_merge_sort - recursive sort method that uses 'divide and conquer'
+ * @arr: array to sort
+ * @aux: auxillary array, deals with temporary sorting and storing of elements
+ * @start: starting index of array/sub-array
+ * @end: the size of the array/sub-array
+ */
 void topdown_merge_sort(int *aux, int *arr, int start, int end)
 {
 	int middle;
@@ -59,6 +74,12 @@ void topdown_merge_sort(int *aux, int *arr, int start, int end)
 	merge(aux, arr, start, middle, end);
 }
 
+/**
+ * merge_sort - copies array into an auxillary array and initiates the
+ *              topdown_merge_sort method
+ * @array: array to sort
+ * @size: the size of the array/sub-array
+ */
 void merge_sort(int *array, size_t size)
 {
 	int *copy, i;
