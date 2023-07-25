@@ -55,6 +55,8 @@ int hoare_partition(int *arr, int start, int end, size_t size);
 void quick_sort_hoare_init(int *arr, int start, int end, size_t size);
 /*..................Bitonic Sort(Increasing).......................*/
 void bitonic_sort(int *array, size_t size);
+void bitonic_split(int *arr, int low, int len, int dir, size_t size);
+void bitonic_merge(int *arr, int low, int len, int dir, size_t size);
 
 
 /********************** List sorting algorithms ********************/
