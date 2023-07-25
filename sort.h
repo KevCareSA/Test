@@ -47,6 +47,8 @@ void sift_down(int *heap, size_t h_size, size_t size);
 void build_max_heap(int *arr, size_t h_size, size_t size);
 void max_heapify(int *arr, int index, size_t h_size, size_t size);
 void iswap(int *x, int *y, int *arr, size_t size);
+/*..................Quick Sort(Hoare) methods......................*/
+void quick_sort_hoare(int *array, size_t size);
 
 
 /********************** List sorting algorithms ********************/
