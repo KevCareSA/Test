@@ -1,5 +1,13 @@
 #include "sort.h"
 
+/**
+ * bitonic_merge - merges the sequences into a complete sorted array
+ * @low: start of split array
+ * @len: length of split array
+ * @dir: direction of bitonic sequence
+ * @arr: array to sort
+ * @size: size of the array
+ */
 void bitonic_merge(int *arr, int low, int len, int dir, size_t size)
 {
 	int i, temp, k;
@@ -20,6 +28,15 @@ void bitonic_merge(int *arr, int low, int len, int dir, size_t size)
 		bitonic_merge(arr, low + k, k, dir, size);
 	}
 }
+
+/**
+ * bitonic_split - splits the array down to its modular elements
+ * @low: start of split array
+ * @len: length of split array
+ * @dir: direction of bitonic sequence
+ * @arr: array to sort
+ * @size: size of the array
+ */
 void bitonic_split(int *arr, int low, int len, int dir, size_t size)
 {
 	int k = len / 2;
@@ -39,6 +56,11 @@ void bitonic_split(int *arr, int low, int len, int dir, size_t size)
 	}
 }
 
+/**
+ * bitonic_sort - function initiates the bitionic sort algorithm
+ * @array: array to sort
+ * @size: size of the array
+ */
 void bitonic_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
