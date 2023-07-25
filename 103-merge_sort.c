@@ -14,21 +14,9 @@ void merge(int *aux, int *arr, int start, int middle, int end)
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	for (k = start; k < middle; k++)
-	{
-		if (k + 1 == middle)
-			printf("%d\n", arr[k]);
-		else
-			printf("%d ", arr[k]);
-	}
+	print_array(arr + start, middle - start);
 	printf("[right]: ");
-	for (k = middle; k < end; k++)
-	{
-		if (k + 1 == end)
-			printf("%d\n", arr[k]);
-		else
-			printf("%d ", arr[k]);
-	}
+	print_array(arr + middle, end - middle);
 	for (k = start; k < end; k++)
 	{
 		if (i < middle && (j >= end || arr[i] <= arr[j]))
@@ -43,13 +31,7 @@ void merge(int *aux, int *arr, int start, int middle, int end)
 		}
 	}
 	printf("[Done]: ");
-	for (k = start; k < end; k++)
-	{
-		if (k + 1 == end)
-			printf("%d\n", aux[k]);
-		else
-			printf("%d ", aux[k]);
-	}
+	print_array(aux + start, end - start);
 }
 
 /**
