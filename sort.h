@@ -49,6 +49,9 @@ void max_heapify(int *arr, int index, size_t h_size, size_t size);
 void iswap(int *x, int *y, int *arr, size_t size);
 /*..................Quick Sort(Hoare) methods......................*/
 void quick_sort_hoare(int *array, size_t size);
+int hoare_partition(int *arr, int start, int end, size_t size);
+void quick_sort_hoare_init(int *arr, int start, int end, size_t size);
+/*..................Bitonic Sort(Increasing).......................*/
 
 
 /********************** List sorting algorithms ********************/

@@ -9,14 +9,12 @@
  */
 int main(void)
 {
-    int array[] = {87, 65, 28, 63, 93, 52, 39, 59, 27, 30, 24, 83, 
-                    69, 62, 13, 6, 88, 58, 92, 26, 42, 
-                    11, 16, 21, 75, 36, 71, 8, 45, 38};
+    int array[] = {100, 93, 40, 57, 14, 58, 85, 54, 31, 56, 46, 39, 15, 26, 78, 13};
     size_t n = sizeof(array) / sizeof(array[0]);
 
     print_array(array, n);
     printf("\n");
-    quick_sort_hoare(array, n);
+    bitonic_sort(array, n);
     printf("\n");
     print_array(array, n);
     return (0);
