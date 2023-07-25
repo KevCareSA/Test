@@ -14,7 +14,6 @@ void bitonic_merge(int *arr, int low, int len, int dir, size_t size)
 				temp = arr[i];
 				arr[i] = arr[i + k];
 				arr[i + k] = temp;
-				print_array(arr, size);
 			}
 		}
 		bitonic_merge(arr, low, k, dir, size);
@@ -23,14 +22,20 @@ void bitonic_merge(int *arr, int low, int len, int dir, size_t size)
 }
 void bitonic_split(int *arr, int low, int len, int dir, size_t size)
 {
-	int k;
+	int k = len / 2;
+	char *str = (dir == 1) ? "UP" : "DOWN";
 
 	if (len > 1)
 	{
-		k = len / 2;
+		printf("Merging [%d/%lu] (%s):\n", len, size, str);
+		print_array(arr + low, len);
+
 		bitonic_split(arr, low, k, 1, size);
 		bitonic_split(arr, low + k, k, 0, size);
 		bitonic_merge(arr, low, len, dir, size);
+
+		printf("Result [%d/%lu] (%s):\n", len, size, str);
+		print_array(arr + low, len);
 	}
 }
 
