@@ -22,6 +22,7 @@ typedef struct listint_s
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 
+
 /*********************** Array sorting algorithms ******************/
 void bubble_sort(int *array, size_t size);
 void selection_sort(int *array, size_t size);
@@ -31,6 +32,7 @@ void counting_sort(int *array, size_t size);
 int *count_arr(int *array, size_t size, size_t *max, int **copy);
 /*.................................................................*/
 void radix_sort(int *array, size_t size);
+
 
 /**************** Recursive Array sorting algorithms ***************/
 /*...................Quick Sort(lomuto) methods....................*/
@@ -52,6 +54,7 @@ void quick_sort_hoare(int *array, size_t size);
 int hoare_partition(int *arr, int start, int end, size_t size);
 void quick_sort_hoare_init(int *arr, int start, int end, size_t size);
 /*..................Bitonic Sort(Increasing).......................*/
+void bitonic_sort(int *array, size_t size);
 
 
 /********************** List sorting algorithms ********************/
