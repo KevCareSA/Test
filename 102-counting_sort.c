@@ -2,8 +2,8 @@
 
 /**
  * count_arr - finds the maximum integer and initializes counting array
-               of size (k + 1) with 0 for each element, where k is the
-               maximum integer of {array}
+ *             of size (k + 1) with 0 for each element, where k is the
+ *             maximum integer of {array}
  * @array: array to sort
  * @size: size of the array
  * @max: maximum integer in {array}

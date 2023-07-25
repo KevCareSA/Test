@@ -1,5 +1,13 @@
 #include "sort.h"
 
+/**
+ * hoare_partition - function implements hoare algorithm
+ * @arr: array to sort
+ * @start: start of array/sub-array
+ * @end: end of array/sub-array
+ * @size: size of the array
+ * Return: the index of the new pivot
+ */
 int hoare_partition(int *arr, int start, int end, size_t size)
 {
 	int i = start - 1, j = end, temp;
@@ -29,6 +37,13 @@ int hoare_partition(int *arr, int start, int end, size_t size)
 	return (i);
 }
 
+/**
+ * quick_sort_hoare_init - function initiates quick sort recursively
+ * @arr: array to sort
+ * @start: start of array/sub-array
+ * @end: end of array/sub-array
+ * @size: size of the array
+ */
 void quick_sort_hoare_init(int *arr, int start, int end, size_t size)
 {
 	int pivot_index;
@@ -41,6 +56,11 @@ void quick_sort_hoare_init(int *arr, int start, int end, size_t size)
 	}
 }
 
+/**
+ * quick_sort_hoare - function implements quick sort(hoare) algorithm
+ * @array: array to sort
+ * @size: size of the array
+ */
 void quick_sort_hoare(int *array, size_t size)
 {
 	if (array == NULL || size < 2)

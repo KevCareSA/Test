@@ -12,11 +12,12 @@ int count_digits(int value)
 	for (count = 1; value / 10 != 0; value /= 10)
 		count++;
 
-	return count;
+	return (count);
 }
 
 /**
  * max_digit_count - counts the maximum digit count of an integer in an array
+ * @arr: array to sort
  * @size: size of an array
  * Return: the maximum digit count
  */
@@ -26,24 +27,25 @@ int max_digit_count(int *arr, size_t size)
 	int max, count;
 
 	max = 1;
-	for(i = 0; i < size; i++)
+	for (i = 0; i < size; i++)
 	{
 		count = count_digits(arr[i]);
 		max = count > max ? count : max;
 	}
-	return max;
+	return (max);
 }
 
 /**
  * p_value - calculates the value of a digit {value} at position {count}
  * @value: a positive integer
+ * @count: position of value
  * Return: the positional value
  */
 int p_value(int value, int count)
 {
 	int i, modulus = 10, divisor = 1, pval;
 
-	for(i = 0; i < count; i++)
+	for (i = 0; i < count; i++)
 		divisor *= 10;
 
 	pval = (value / divisor) % modulus;
@@ -57,7 +59,7 @@ int p_value(int value, int count)
  * @copy: copy of the original array
  * @ca: counting array
  * @size: size of the array
- * @p_val: position value of given integer element
+ * @pval: position value of given integer element
  */
 void radix_count_arr(int *arr, int *copy, int *ca, size_t size, int pval)
 {
@@ -84,7 +86,7 @@ void radix_count_arr(int *arr, int *copy, int *ca, size_t size, int pval)
 }
 
 /**
- * count_digits - counts the number of digits in a positive integer
+ * radix_sort - implements counting sort individual digits of an integer
  * @array: original array
  * @size: size of the array
  */
@@ -101,7 +103,7 @@ void radix_sort(int *array, size_t size)
 
 	count = max_digit_count(array, size);
 
-	for(i = 0; i < count; i++)
+	for (i = 0; i < count; i++)
 	{
 		radix_count_arr(array, copy, carray, size, i);
 		print_array(array, size);
