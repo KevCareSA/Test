@@ -97,6 +97,37 @@ class HBNBCommand(cmd.Cmd):
                     obj_list.append(str(val))
             print(obj_list)
 
+    def do_update(self, line):
+        """This updates/adds attributes of an instance of a <class.id>"""
+        dict_obj = models.storage.all()
+        args = line.split()
+        arglen = len(args)
+
+        if arglen == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.__class_names:
+            print("** class doesn't exist **")
+        elif arglen < 2:
+            print("** instance id missing **")
+        elif f"{args[0]}.{args[1]}" not in dict_obj:
+            print("** no instance found **")
+        elif arglen < 3:
+            print("** attribute name missing **")
+        elif arglen < 4:
+            print("** value missing **")
+        # ClassName: arg[0] | id: arg[1] | attrname: arg[2] | attrvalue: arg[3]
+        else:
+            try:
+                value = eval(args[3])
+                if type(value) not in [int, float]:
+                    value = args[3]
+            except (NameError, SyntaxError, TypeError, ValueError):
+                value = args[3]
+
+            print(value)
+            setattr(dict_obj[f"{args[0]}.{args[1]}"], args[2], value)
+            models.storage.save()
+
     def emptyline(self):
         """handles the empty line condition
         """
