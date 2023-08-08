@@ -17,11 +17,6 @@ class Interpreter(cmd.Cmd):
         """Exit the shell\n"""
         return True
 
-    def do_power(self, line):
-        """calculates pow(x, y)"""
-        commands = line.strip().split()
-        print(int(commands[0]) ** int(commands[1]))
-
     def emptyline(self):
         pass
 
