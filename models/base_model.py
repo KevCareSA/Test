@@ -6,7 +6,7 @@ This module constains the BaseModel class for the console
 authors: Bradley Gilden && Lebohang (KevCare) Mokobane
 date: 07/08/2023
 """
-# "%Y-%m-%dT%H:%M:%S.%f"
+
 
 from uuid import uuid4
 from datetime import datetime
