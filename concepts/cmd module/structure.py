@@ -8,10 +8,6 @@ class Interpreter(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    def do_greet(self, line):
-        """Arbitrary greeting"""
-        print("hello")
-
     def do_EOF(self, line):
         """Handles EOF condition by exiting the Shell"""
         print()
@@ -22,6 +18,7 @@ class Interpreter(cmd.Cmd):
         return True
 
     def do_power(self, line):
+        """calculates pow(x, y)"""
         commands = line.strip().split()
         print(int(commands[0]) ** int(commands[1]))
 
