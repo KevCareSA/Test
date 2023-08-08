@@ -7,7 +7,7 @@ authors: Bradley Gilden && Lebohang (KevCare) Mokobane
 date: 07/08/2023
 """
 
-
+import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -31,6 +31,9 @@ class BaseModel:
                 else:
                     self.__dict__[k] = v
 
+        else:
+            models.storage.new(self)
+
     def __str__(self):
         """unofficial string representation of an instance"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
@@ -38,6 +41,7 @@ class BaseModel:
     def save(self):
         """updates the datetime of the public instance: updated_at attribute"""
         self.updated_at = datetime.today()
+        models.storage.save()
 
     def to_dict(self):
         """returns dictionary of all keys/values of __dict__ of an instance"""
@@ -46,28 +50,3 @@ class BaseModel:
         custom["created_at"], custom["updated_at"] = \
             custom["created_at"].isoformat(), custom["updated_at"].isoformat()
         return custom
-
-
-if __name__ == '__main__':
-    my_model = BaseModel()
-    my_model.name = "My_First_Model"
-    my_model.my_number = 89
-    print(my_model.id)
-    print(my_model)
-    print(type(my_model.created_at))
-    print("--")
-    my_model_json = my_model.to_dict()
-    print(my_model_json)
-    print("JSON of my_model:")
-    for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]),
-                                       my_model_json[key]))
-
-    print("--")
-    my_new_model = BaseModel(**my_model_json)
-    print(my_new_model.id)
-    print(my_new_model)
-    print(type(my_new_model.created_at))
-
-    print("--")
-    print(my_model is my_new_model)
