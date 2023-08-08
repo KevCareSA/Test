@@ -9,6 +9,7 @@ date: 07/08/2023
 
 import models
 import cmd
+from re import findall
 from models.base_model import BaseModel
 
 
@@ -100,7 +101,8 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """This updates/adds attributes of an instance of a <class.id>"""
         dict_obj = models.storage.all()
-        args = line.split()
+        # return matches with dquotes, quotes or any nonspace character
+        args = findall(r'"[^"]*"|\'[^\']*\'|\S+', line)
         arglen = len(args)
 
         if arglen == 0:
@@ -119,12 +121,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             try:
                 value = eval(args[3])
-                if type(value) not in [int, float]:
+                if type(value) not in [int, float, str]:
                     value = args[3]
             except (NameError, SyntaxError, TypeError, ValueError):
                 value = args[3]
 
-            print(value)
             setattr(dict_obj[f"{args[0]}.{args[1]}"], args[2], value)
             models.storage.save()
 
