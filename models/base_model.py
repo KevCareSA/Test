@@ -23,13 +23,13 @@ class BaseModel:
         iso_format = "%Y-%m-%dT%H:%M:%S.%f"
 
         if kwargs != {}:
-            for k, v in kwargs.items():
+            for k, val in kwargs.items():
                 if k == '__class__':
                     continue
                 if k == 'created_at' or k == 'updated_at':
-                    self.__dict__[k] = datetime.strptime(v, iso_format)
+                    self.__dict__[k] = datetime.strptime(val, iso_format)
                 else:
-                    self.__dict__[k] = v
+                    self.__dict__[k] = val
 
         else:
             models.storage.new(self)
