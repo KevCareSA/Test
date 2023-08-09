@@ -10,7 +10,7 @@ date: 07/08/2023
 
 import models
 import cmd
-from re import findall
+from re import findall, search
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -26,6 +26,19 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __class_names = {"BaseModel", "User", "State", "City", "Place",
                      "Amenity", "Review"}
+
+    def precmd(self, line):
+        """Handles command processing before it is accepted by a function
+        """
+        args = line.split()
+        clsmatch = ""
+        pattern = r"(BaseModel|User|State|City|Place|Amenity|Review)\.all\(\)"
+
+        if len(args) >= 1 and search(pattern, args[0]):
+            clsmatch = search(r"[a-zA-Z]+(?=\.all\(\))", args[0])
+            return f"all {clsmatch.group()}"
+        else:
+            return line
 
     def do_EOF(self, line):
         """Handles EOF signal by exiting the Shell
