@@ -63,7 +63,8 @@ class HBNBCommand(cmd.Cmd):
             print(dict_obj[f"{args[0]}.{args[1]}"])
 
     def do_destroy(self, line):
-        """Deletes instance based on class name and id"""
+        """Deletes instance based on class name and id
+        """
         dict_obj = models.storage.all()
         args = line.split()
         arglen = len(args)
@@ -82,7 +83,8 @@ class HBNBCommand(cmd.Cmd):
         models.storage.save()
 
     def do_all(self, line):
-        """Prints list of string representations of an object"""
+        """Prints list of string representations of an object
+        """
         dict_obj = models.storage.all()
         args = line.split()
         arglen = len(args)
