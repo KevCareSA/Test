@@ -4,7 +4,7 @@
 This module constains the User class which inherits Basemodel
 
 authors: Bradley Gilden && Lebohang (KevCare) Mokobane
-date: 07/08/2023
+date: 09/08/2023
 """
 
 
