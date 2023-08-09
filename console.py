@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif arglen < 2:
             print("** instance id missing **")
-        elif f"{args[0]}.{args[1]}" not in dict_obj:
+        elif f"{args[0]}.{args[1]}" not in dict_obj.keys():
             print("** no instance found **")
         else:
             print(dict_obj[f"{args[0]}.{args[1]}"])
@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif arglen < 2:
             print("** instance id missing **")
-        elif f"{args[0]}.{args[1]}" not in dict_obj:
+        elif f"{args[0]}.{args[1]}" not in dict_obj.keys():
             print("** no instance found **")
         else:
             del dict_obj[f"{args[0]}.{args[1]}"]
@@ -111,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif arglen < 2:
             print("** instance id missing **")
-        elif f"{args[0]}.{args[1]}" not in dict_obj:
+        elif f"{args[0]}.{args[1]}" not in dict_obj.keys():
             print("** no instance found **")
         elif arglen < 3:
             print("** attribute name missing **")
@@ -137,22 +137,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
-
-"""
-all BaseModel
-
-obj_list = []
-
-for v in dictionary.values()
-    if (v.__class__.__name__ == "arg[0]")
-        obj_list.append(str(v))
-
-for v in dictionary.values()
-    obj_list.append(str(v))
-
-    print(obj)
-
-
-
-"""
