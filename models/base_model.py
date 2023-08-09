@@ -13,7 +13,13 @@ from datetime import datetime
 
 
 class BaseModel:
-    """Base class for the HBnB console"""
+    """Base Class for all other classes in the HBnB console
+
+    Attributes <PRIVATE>:
+        id(str): contains object id using uuid4
+        created_at(datetime): contains the time at which an object was created
+        updated_at(datetime): contains the time at which an object was updated
+    """
     def __init__(self, *args, **kwargs):
         """constructor for the base class"""
         self.id = str(uuid4())

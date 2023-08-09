@@ -7,18 +7,25 @@ authors: Bradley Gilden && Lebohang (KevCare) Mokobane
 date: 07/08/2023
 """
 
+
 import models
 import cmd
 from re import findall
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """Simple command processor example."""
 
     prompt = "(hbnb) "
-    __class_names = {"BaseModel", "User"}
+    __class_names = {"BaseModel", "User", "State", "City", "Place",
+                     "Amenity", "Review"}
 
     def do_EOF(self, line):
         """Handles EOF signal by exiting the Shell
@@ -130,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
                 value = args[3]
 
             setattr(dict_obj[f"{args[0]}.{args[1]}"], args[2], value)
-            models.storage.save()
+            dict_obj[f"{args[0]}.{args[1]}"].save()
 
     def emptyline(self):
         """handles the empty line condition

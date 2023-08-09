@@ -7,13 +7,23 @@ authors: Bradley Gilden && Lebohang (KevCare) Mokobane
 date: 07/08/2023
 """
 
+
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
-    """serializes instances to a JSON file and deserializes
-    JSON file to instances
+    """Handles with serialization/deserialization of objects to/from JSON
+
+    Attributes <PUBLIC>:
+        __file_path(str): contains path to json file
+        __objects: contain a dictionary of instances of all Classes
     """
 
     __file_path = "file.json"
