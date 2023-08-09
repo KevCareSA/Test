@@ -31,14 +31,32 @@ class HBNBCommand(cmd.Cmd):
         """Handles command processing before it is accepted by a function
         """
         args = line.split()
+        arglen = len(args)
         clsmatch = ""
         pattern = r"(BaseModel|User|State|City|Place|Amenity|Review)\.all\(\)"
+        pattern2 = \
+            r"(BaseModel|User|State|City|Place|Amenity|Review)\.count\(\)"
 
-        if len(args) >= 1 and search(pattern, args[0]):
+        if arglen >= 1 and search(pattern, args[0]):
             clsmatch = search(r"[a-zA-Z]+(?=\.all\(\))", args[0])
             return f"all {clsmatch.group()}"
+        elif arglen >= 1 and search(pattern2, args[0]):
+            clsmatch = search(r"[a-zA-Z]+(?=\.count\(\))", args[0])
+            return f"count {clsmatch.group()}"
         else:
             return line
+
+    def do_count(self, line):
+        """counts the number of instances of a specific class"""
+        args = line.split()
+        sum = 0
+        dict_obj = models.storage.all()
+
+        if len(args) == 1 and args[0] in HBNBCommand.__class_names:
+            for obj in dict_obj.values():
+                if str(obj).startswith(f"[{args[0]}]"):
+                    sum += 1
+            print(sum)
 
     def do_EOF(self, line):
         """Handles EOF signal by exiting the Shell
