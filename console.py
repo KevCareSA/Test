@@ -11,13 +11,14 @@ import models
 import cmd
 from re import findall
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """Simple command processor example."""
 
     prompt = "(hbnb) "
-    __class_names = ["BaseModel"]
+    __class_names = {"BaseModel", "User"}
 
     def do_EOF(self, line):
         """Handles EOF signal by exiting the Shell
