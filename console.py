@@ -59,7 +59,8 @@ class HBNBCommand(cmd.Cmd):
             return line
 
     def do_count(self, line):
-        """counts the number of instances of a specific class"""
+        """counts the number of instances of a specific class
+        """
         args = line.split()
         sum = 0
         dict_obj = models.storage.all()
@@ -152,7 +153,8 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_update(self, line):
-        """This updates/adds attributes of an instance of a <class.id>"""
+        """This updates/adds attributes of an instance of a <class.id>
+        """
         dict_obj = models.storage.all()
         # return matches with dquotes, quotes or any nonspace character
         args = findall(r'"[^"]*"|\'[^\']*\'|\S+', line)
