@@ -10,7 +10,7 @@ date: 07/08/2023
 
 import models
 import cmd
-from re import findall, search
+from re import findall, search, VERBOSE
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -45,13 +45,21 @@ class HBNBCommand(cmd.Cmd):
             return f"count {clsmatch.group()}"
         elif arglen >= 1 and search(pattern3, args[0]):
             clsmatch = search(r"\w+(?=\.show\(.*\))", args[0])
-            idmatch = search(r"(?<=\.show\(\").+(?=\"\))", args[0])
+            p1 = r"""(?<=\.show\(\")[\w\s\-]+(?=\"\))|
+            (?<=\.show\(\')[\w\s\-]+(?=\'\))|
+            (?<=\.show\()[\w\s\-]+(?=\))
+            """
+            idmatch = search(p1, args[0], VERBOSE)
             if idmatch is None:
                 return f"show {clsmatch.group()}"
             return f"show {clsmatch.group()} {idmatch.group()}"
         elif arglen >= 1 and search(pattern4, args[0]):
             clsmatch = search(r"\w+(?=\.destroy\(.*\))", args[0])
-            idmatch = search(r"(?<=\.destroy\(\").+(?=\"\))", args[0])
+            p1 = r"""(?<=\.destroy\(\")[\w\s\-]+(?=\"\))|
+            (?<=\.destroy\(\')[\w\s\-]+(?=\'\))|
+            (?<=\.destroy\()[\w\s\-]+(?=\))
+            """
+            idmatch = search(p1, args[0], VERBOSE)
             if idmatch is None:
                 return f"destroy {clsmatch.group()}"
             return f"destroy {clsmatch.group()} {idmatch.group()}"
