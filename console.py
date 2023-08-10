@@ -36,6 +36,7 @@ class HBNBCommand(cmd.Cmd):
         pattern2 = r"\w+\.count\(\s*\)"
         pattern3 = r"\w+\.show\(.*\)"
         pattern4 = r"\w+\.destroy\(.*\)"
+        pattern5 = r"\w+\.update\(.*\)"
 
         if arglen >= 1 and search(pattern, args[0]):
             clsmatch = search(r"\w+(?=\.all\(\s*\))", args[0])
@@ -63,6 +64,33 @@ class HBNBCommand(cmd.Cmd):
             if idmatch is None:
                 return f"destroy {clsmatch.group()}"
             return f"destroy {clsmatch.group()} {idmatch.group()}"
+        elif arglen >= 1 and search(pattern5, args[0]):
+            cm = search(r"\w+(?=\.update\(.*\))", args[0])
+            idstr = r"""(?<=\.update\(\")[\s\w\-]*(?=\",)|
+            (?<=\.update\(\')[\s\w\-]*(?=\',)|
+            (?<=\.update\()[\s\w\-]*(?=,)
+            """
+            namestr = r"""(?<=,\s\")[\s\w]*(?=\",)|
+            (?<=,\s\')[\s\w]*(?=\',)|
+            (?<=,\s)[\s\w]*(?=,)
+            """
+            valuestr = r"""(?<=,\s\")[\s\w]*(?=\"\))|
+            (?<=,\s\')[\s\w]*(?=\'\))|
+            (?<=,\s)[\s\w]*(?=\))
+            """
+            idmatch = search(idstr, args[0], VERBOSE)
+            namematch = search(namestr, args[0], VERBOSE)
+            valuematch = search(valuestr, args[0], VERBOSE)
+            if idmatch is None:
+                return f"update {cm.group()}"
+            elif idmatch and namematch is None:
+                return f"update {cm.group()} {idmatch.group()}"
+            elif idmatch and namematch and valuematch is None:
+                return f"""update {cm.group()} {idmatch.group()} \
+                {namematch.group()}"""
+            else:
+                return f"""update {cm.group()} {idmatch.group()} \
+                {namematch.group()} {valuematch.group()}"""
         else:
             return line
 
