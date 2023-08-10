@@ -30,18 +30,31 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """Handles command processing before it is accepted by a function
         """
-        args = line.split()
+        args = findall(r"\S+\.\S+\(.*\)", line)
         arglen = len(args)
-        clsmatch = ""
-        pattern = r"[a-zA-Z]+\.all\(\)"
-        pattern2 = r"[a-zA-Z]+\.count\(\)"
+        pattern = r"\w+\.all\(\s*\)"
+        pattern2 = r"\w+\.count\(\s*\)"
+        pattern3 = r"\w+\.show\(.*\)"
+        pattern4 = r"\w+\.destroy\(.*\)"
 
         if arglen >= 1 and search(pattern, args[0]):
-            clsmatch = search(r"[a-zA-Z]+(?=\.all\(\))", args[0])
+            clsmatch = search(r"\w+(?=\.all\(\s*\))", args[0])
             return f"all {clsmatch.group()}"
         elif arglen >= 1 and search(pattern2, args[0]):
-            clsmatch = search(r"[a-zA-Z]+(?=\.count\(\))", args[0])
+            clsmatch = search(r"\w+(?=\.count\(\s*\))", args[0])
             return f"count {clsmatch.group()}"
+        elif arglen >= 1 and search(pattern3, args[0]):
+            clsmatch = search(r"\w+(?=\.show\(.*\))", args[0])
+            idmatch = search(r"(?<=\.show\(\").+(?=\"\))", args[0])
+            if idmatch is None:
+                return f"show {clsmatch.group()}"
+            return f"show {clsmatch.group()} {idmatch.group()}"
+        elif arglen >= 1 and search(pattern4, args[0]):
+            clsmatch = search(r"\w+(?=\.destroy\(.*\))", args[0])
+            idmatch = search(r"(?<=\.destroy\(\").+(?=\"\))", args[0])
+            if idmatch is None:
+                return f"destroy {clsmatch.group()}"
+            return f"destroy {clsmatch.group()} {idmatch.group()}"
         else:
             return line
 
