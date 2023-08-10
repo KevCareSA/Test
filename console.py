@@ -33,9 +33,8 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         arglen = len(args)
         clsmatch = ""
-        pattern = r"(BaseModel|User|State|City|Place|Amenity|Review)\.all\(\)"
-        pattern2 = \
-            r"(BaseModel|User|State|City|Place|Amenity|Review)\.count\(\)"
+        pattern = r"[a-zA-Z]+\.all\(\)"
+        pattern2 = r"[a-zA-Z]+\.count\(\)"
 
         if arglen >= 1 and search(pattern, args[0]):
             clsmatch = search(r"[a-zA-Z]+(?=\.all\(\))", args[0])
