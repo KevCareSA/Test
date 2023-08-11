@@ -46,9 +46,9 @@ class HBNBCommand(cmd.Cmd):
             return f"count {clsmatch.group()}"
         elif arglen >= 1 and search(pattern3, args[0]):
             clsmatch = search(r"\w+(?=\.show\(.*\))", args[0])
-            p1 = r"""(?<=\.show\(\")[\w\s\-]+(?=\"\))|
-            (?<=\.show\(\')[\w\s\-]+(?=\'\))|
-            (?<=\.show\()[\w\s\-]+(?=\))
+            p1 = r"""(?<=\.show\(\")[^\"]+(?=\"\))|
+            (?<=\.show\(\')[^\']+(?=\'\))|
+            (?<=\.show\()[^\'\"]+(?=\))
             """
             idmatch = search(p1, args[0], VERBOSE)
             if idmatch is None:
@@ -56,9 +56,9 @@ class HBNBCommand(cmd.Cmd):
             return f"show {clsmatch.group()} {idmatch.group()}"
         elif arglen >= 1 and search(pattern4, args[0]):
             clsmatch = search(r"\w+(?=\.destroy\(.*\))", args[0])
-            p1 = r"""(?<=\.destroy\(\")[\w\s\-]+(?=\"\))|
-            (?<=\.destroy\(\')[\w\s\-]+(?=\'\))|
-            (?<=\.destroy\()[\w\s\-]+(?=\))
+            p1 = r"""(?<=\.destroy\(\")[^\"]+(?=\"\))|
+            (?<=\.destroy\(\')[^\']+(?=\'\))|
+            (?<=\.destroy\()[^\'\"]+(?=\))
             """
             idmatch = search(p1, args[0], VERBOSE)
             if idmatch is None:
@@ -66,17 +66,17 @@ class HBNBCommand(cmd.Cmd):
             return f"destroy {clsmatch.group()} {idmatch.group()}"
         elif arglen >= 1 and search(pattern5, args[0]):
             cm = search(r"\w+(?=\.update\(.*\))", args[0])
-            idstr = r"""(?<=\.update\(\")[\s\w\-]*(?=\",)|
-            (?<=\.update\(\')[\s\w\-]*(?=\',)|
-            (?<=\.update\()[\s\w\-]*(?=,)
+            idstr = r"""(?<=\.update\(\")[^\"]*(?=\",)|
+            (?<=\.update\(\')[^\']*(?=\',)|
+            (?<=\.update\()[^\'\"]*(?=,)
             """
-            namestr = r"""(?<=,\s\")[\s\w]*(?=\",)|
-            (?<=,\s\')[\s\w]*(?=\',)|
-            (?<=,\s)[\s\w]*(?=,)
+            namestr = r"""(?<=,\s\")[^\"]*(?=\",)|
+            (?<=,\s\')[^\']*(?=\',)|
+            (?<=,\s)[^\'\"]*(?=,)
             """
-            valuestr = r"""(?<=,\s\")[\s\w]*(?=\"\))|
-            (?<=,\s\')[\s\w]*(?=\'\))|
-            (?<=,\s)[\s\w]*(?=\))
+            valuestr = r"""(?<=,\s\")[^\"]*(?=\"\))|
+            (?<=,\s\')[^\']*(?=\'\))|
+            (?<=,\s)[^\'\"]*(?=\))
             """
             idmatch = search(idstr, args[0], VERBOSE)
             namematch = search(namestr, args[0], VERBOSE)

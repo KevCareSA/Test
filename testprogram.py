@@ -1,36 +1,24 @@
 #!/usr/bin/python3
-from models import storage
 from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
 
+my_model = BaseModel()
+my_model.name = "My_First_Model"
+my_model.my_number = 89
+print(my_model.id)
+print(my_model)
+print(type(my_model.created_at))
+print("--")
+my_model_json = my_model.to_dict()
+print(my_model_json)
+print("JSON of my_model:")
+for key in my_model_json.keys():
+    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
 
-all_objs = storage.all()
-print("-- Reloaded objects --")
-for obj_id in all_objs.keys():
-    obj = all_objs[obj_id]
-    print(obj)
+print("--")
+my_new_model = BaseModel(**my_model_json)
+print(my_new_model.id)
+print(my_new_model)
+print(type(my_new_model.created_at))
 
-print("-- Create a new User --")
-my_user = Place()
-my_user.city_id = "767c2a50-4aef-410a-bad8-360734991b8b"
-my_user.name = "49 Fox Glove"
-my_user.latitude = 4.4
-my_user.number_rooms = 4
-my_user.amenity_ids = ["shfioefwe-asfdhaoef", "laskdfs-alskfjle-aslfkjel"]
-my_user.save()
-print(my_user)
-
-print("-- Create a new User 2 --")
-my_user2 = Place()
-my_user2.city_id = "767c2a50-4aef-410a-bad8-360734991b8b"
-my_user2.name = "73 Hills Drive"
-my_user2.latitude = 33.3
-my_user2.number_rooms = 2
-my_user.amenity_ids = ["he-asdkfaoef-slkdjfskdjf", "laskdfs-alskfjle-aslfkjel"]
-my_user2.save()
-print(my_user2)
+print("--")
+print(my_model is my_new_model)
