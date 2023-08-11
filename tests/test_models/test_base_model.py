@@ -70,8 +70,10 @@ class Test_BM_Instantiation(unittest.TestCase):
     def test_creation_time(self):
         """Test instance of BaseModel class"""
         base = BaseModel()
+        difference = base.updated_at - base.created_at
         sleep(0.0001)
         base2 = BaseModel()
+        self.assertLess(abs(difference.total_seconds()), 0.01)
         self.assertGreater(base2.created_at, base.created_at)
         self.assertGreater(base2.updated_at, base.updated_at)
 
@@ -86,3 +88,12 @@ class Test_BM_Instantiation(unittest.TestCase):
         base = BaseModel()
         expected = f"[BaseModel] ({base.id}) {base.__dict__}"
         self.assertEqual(str(base), expected)
+
+    def test_to_dict_type(self):
+        """Tests the return type of to dict"""
+        base = BaseModel
+        self.assertEqual(type(base), dict)
+
+
+if __name__ == '__main__':
+    unittest.main()
