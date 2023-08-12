@@ -61,6 +61,15 @@ class Test_RE_Instantiation(unittest.TestCase):
         self.assertTrue(hasattr(ct, "created_at"))
         self.assertTrue(hasattr(ct, "updated_at"))
         self.assertTrue(hasattr(ct, "id"))
+        self.assertTrue(hasattr(ct, "text"))
+        self.assertTrue(hasattr(ct, "user_id"))
+        self.assertTrue(hasattr(ct, "place_id"))
+
+    def test_extra_attribute_types(self):
+        """Tests the data types of attributes that are not Inherited"""
+        self.assertEqual(type(Review.text), str)
+        self.assertEqual(type(Review.user_id), str)
+        self.assertEqual(type(Review.place_id), str)
 
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
@@ -151,12 +160,19 @@ class Test_Serialization(unittest.TestCase):
     def test_save_contents(self):
         """Test if file is saved to the right contents"""
         ct = Review()
+        ct.phonenum = "078 555 7832"
+        ct.income = 100100
         ct.save()
         self.assertTrue(os.path.exists("file.json"))
         if os.path.exists("file.json"):
             with open("file.json", "r") as file:
                 contents = file.read()
                 self.assertGreater(len(contents), 0)
+                self.assertTrue(f'"Review.{ct.id}"' in contents)
+                self.assertTrue(f'"{ct.updated_at.isoformat()}"' in contents)
+                self.assertTrue(f'"{ct.created_at.isoformat()}"' in contents)
+                self.assertTrue('100100' in contents)
+                self.assertTrue('"078 555 7832"' in contents)
 
     def test_save_update(self):
         """Test if update_at is changed during save"""

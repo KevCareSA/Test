@@ -162,12 +162,19 @@ class Test_Serialization(unittest.TestCase):
     def test_save_contents(self):
         """Test if file is saved to the right contents"""
         ct = User()
+        ct.phonenum = "078 555 7832"
+        ct.income = 100100
         ct.save()
         self.assertTrue(os.path.exists("file.json"))
         if os.path.exists("file.json"):
             with open("file.json", "r") as file:
                 contents = file.read()
                 self.assertGreater(len(contents), 0)
+                self.assertTrue(f'"User.{ct.id}"' in contents)
+                self.assertTrue(f'"{ct.updated_at.isoformat()}"' in contents)
+                self.assertTrue(f'"{ct.created_at.isoformat()}"' in contents)
+                self.assertTrue('100100' in contents)
+                self.assertTrue('"078 555 7832"' in contents)
 
     def test_save_update(self):
         """Test if update_at is changed during save"""
