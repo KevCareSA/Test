@@ -61,6 +61,31 @@ class Test_PL_Instantiation(unittest.TestCase):
         self.assertTrue(hasattr(ct, "created_at"))
         self.assertTrue(hasattr(ct, "updated_at"))
         self.assertTrue(hasattr(ct, "id"))
+        self.assertTrue(hasattr(ct, "name"))
+        self.assertTrue(hasattr(ct, "city_id"))
+        self.assertTrue(hasattr(ct, "user_id"))
+        self.assertTrue(hasattr(ct, "description"))
+        self.assertTrue(hasattr(ct, "number_rooms"))
+        self.assertTrue(hasattr(ct, "number_bathrooms"))
+        self.assertTrue(hasattr(ct, "max_guest"))
+        self.assertTrue(hasattr(ct, "price_by_night"))
+        self.assertTrue(hasattr(ct, "latitude"))
+        self.assertTrue(hasattr(ct, "longitude"))
+        self.assertTrue(hasattr(ct, "amenity_ids"))
+
+    def test_extra_attribute_types(self):
+        """Tests the data types of attributes that are not Inherited"""
+        self.assertEqual(type(Place.name), str)
+        self.assertEqual(type(Place.city_id), str)
+        self.assertEqual(type(Place.user_id), str)
+        self.assertEqual(type(Place.description), str)
+        self.assertEqual(type(Place.number_rooms), int)
+        self.assertEqual(type(Place.number_bathrooms), int)
+        self.assertEqual(type(Place.max_guest), int)
+        self.assertEqual(type(Place.price_by_night), int)
+        self.assertEqual(type(Place.latitude), float)
+        self.assertEqual(type(Place.longitude), float)
+        self.assertEqual(type(Place.amenity_ids), list)
 
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
@@ -157,6 +182,9 @@ class Test_Serialization(unittest.TestCase):
             with open("file.json", "r") as file:
                 contents = file.read()
                 self.assertGreater(len(contents), 0)
+                self.assertTrue(f"Place.{ct.id}" in contents)
+                self.assertTrue(f"{ct.updated_at.isoformat()}" in contents)
+                self.assertTrue(f"{ct.created_at.isoformat()}" in contents)
 
     def test_save_update(self):
         """Test if update_at is changed during save"""
