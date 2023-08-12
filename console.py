@@ -133,8 +133,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
-        """Displays string representation of an instance of class using class
-        name and id
+        """Displays string representing object id and and object dictionary
         """
         dict_obj = models.storage.all()
         args = line.split()
