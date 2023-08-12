@@ -130,6 +130,33 @@ class Test_Save_Reload(unittest.TestCase):
                 self.assertTrue('9000.52' in content)
                 self.assertFalse('"9000.52"' in content)
 
+    def test_reload_normal(self):
+        """Test normal functioning of reload"""
+        fs = FileStorage()
+        FileStorage._FileStorage__objects = {}
+        base = BaseModel()
+        base.save()
+        fs.reload()
+        fstring = f"BaseModel.{base.id}"
+        self.assertIn(fstring, fs.all().keys())
+        self.assertIn("id", fs.all()[fstring].to_dict())
+        self.assertIn("updated_at", fs.all()[fstring].to_dict())
+        self.assertIn("created_at", fs.all()[fstring].to_dict())
+
+    def test_reload_without_file(self):
+        """Test normal functioning of reload"""
+        fs = FileStorage()
+        FileStorage._FileStorage__objects = {}
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file__path)
+        fs.reload()
+
+    def test_reload_with_extra_args(self):
+        """Test normal functioning of reload"""
+        fs = FileStorage()
+        with self.assertRaises(TypeError):
+            fs.reload(1234)
+
 
 if __name__ == '__main__':
     unittest.main()
