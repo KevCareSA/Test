@@ -8,6 +8,7 @@ Test module for city.py and the City class
 import unittest
 from time import sleep
 import os
+from models.engine.file_storage import FileStorage
 from datetime import datetime
 import models.city as citymodule
 from models.base_model import BaseModel
@@ -147,8 +148,8 @@ class Test_Serialization(unittest.TestCase):
     """Test object serialization and deserialization"""
 
     def tearDown(self):
-        if os.path.exists("file.json"):
-            os.remove("file.json")
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     def test_save_with_args(self):
         """Test if object is saved with multiple args"""
@@ -161,9 +162,9 @@ class Test_Serialization(unittest.TestCase):
         ct.phonenum = "078 555 7832"
         ct.income = 100100
         ct.save()
-        self.assertTrue(os.path.exists("file.json"))
-        if os.path.exists("file.json"):
-            with open("file.json", "r") as file:
+        self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            with open(FileStorage._FileStorage__file_path, "r") as file:
                 contents = file.read()
                 self.assertGreater(len(contents), 0)
                 self.assertTrue(f'"City.{ct.id}"' in contents)
