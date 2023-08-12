@@ -56,11 +56,18 @@ class Test_CT_Instantiation(unittest.TestCase):
         self.assertTrue(isinstance(ct, City))
 
     def test_mandatory_attributes(self):
-        """tests most basic attributes"""
+        """tests existence of default attributes"""
         ct = City()
         self.assertTrue(hasattr(ct, "created_at"))
         self.assertTrue(hasattr(ct, "updated_at"))
         self.assertTrue(hasattr(ct, "id"))
+        self.assertTrue(hasattr(ct, "name"))
+        self.assertTrue(hasattr(ct, "state_id"))
+
+    def test_extra_attribute_types(self):
+        """Tests types of attributes not inherited from BaseModel"""
+        self.assertEqual(type(City.name), str)
+        self.assertEqual(type(City.state_id), str)
 
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
@@ -69,7 +76,7 @@ class Test_CT_Instantiation(unittest.TestCase):
         self.assertEqual(type(ct.updated_at), datetime)
 
     def test_id_datatype(self):
-        """Test the type of the object id"""
+        """Test the type of object id"""
         ct = City()
         self.assertEqual(type(ct.id), str)
 
@@ -127,7 +134,7 @@ class Test_CT_Instantiation(unittest.TestCase):
         self.assertEqual(b_dict['age'], 52)
 
     def test_newobj_from_dict(self):
-        """Testing creating a new object from"""
+        """Testing creating a new object from a dictionary"""
         ct = City()
         ct2 = City(**ct.to_dict())
         self.assertEqual(ct.created_at, ct2.created_at)

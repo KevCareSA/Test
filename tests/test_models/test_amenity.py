@@ -61,6 +61,11 @@ class Test_AM_Instantiation(unittest.TestCase):
         self.assertTrue(hasattr(ct, "created_at"))
         self.assertTrue(hasattr(ct, "updated_at"))
         self.assertTrue(hasattr(ct, "id"))
+        self.assertTrue(hasattr(ct, "name"))
+
+    def test_extra_attribute_types(self):
+        """Tests the data types of attributes that are not Inherited"""
+        self.assertEqual(type(Amenity.name), str)
 
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""

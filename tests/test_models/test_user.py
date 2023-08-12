@@ -61,6 +61,17 @@ class Test_US_Instantiation(unittest.TestCase):
         self.assertTrue(hasattr(ct, "created_at"))
         self.assertTrue(hasattr(ct, "updated_at"))
         self.assertTrue(hasattr(ct, "id"))
+        self.assertTrue(hasattr(ct, "first_name"))
+        self.assertTrue(hasattr(ct, "last_name"))
+        self.assertTrue(hasattr(ct, "email"))
+        self.assertTrue(hasattr(ct, "password"))
+
+    def test_extra_attribute_types(self):
+        """Tests the data types of attributes that are not Inherited"""
+        self.assertEqual(type(User.email), str)
+        self.assertEqual(type(User.password), str)
+        self.assertEqual(type(User.first_name), str)
+        self.assertEqual(type(User.last_name), str)
 
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
