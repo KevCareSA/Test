@@ -70,6 +70,11 @@ class Test_CT_Instantiation(unittest.TestCase):
         self.assertEqual(type(City.name), str)
         self.assertEqual(type(City.state_id), str)
 
+    def test_type_initialization(self):
+        """Tests initialization value of public attributes"""
+        self.assertEqual(City.name, "")
+        self.assertEqual(City.state_id, "")
+
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
         ct = City()

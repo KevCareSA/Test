@@ -72,6 +72,12 @@ class Test_RE_Instantiation(unittest.TestCase):
         self.assertEqual(type(Review.user_id), str)
         self.assertEqual(type(Review.place_id), str)
 
+    def test_type_initialization(self):
+        """Tests the initialzation value of public attributes"""
+        self.assertEqual(Review.text, "")
+        self.assertEqual(Review.user_id, "")
+        self.assertEqual(Review.place_id, "")
+
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
         ct = Review()

@@ -68,6 +68,10 @@ class Test_AM_Instantiation(unittest.TestCase):
         """Tests the data types of attributes that are not Inherited"""
         self.assertEqual(type(Amenity.name), str)
 
+    def test_type_initialization(self):
+        """tests initialization of public attributes"""
+        self.assertEqual(Amenity.name, "")
+
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
         ct = Amenity()

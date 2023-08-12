@@ -68,6 +68,10 @@ class Test_ST_Instantiation(unittest.TestCase):
         """Tests the data types of attributes that are not Inherited"""
         self.assertEqual(type(State.name), str)
 
+    def test_type_initialization(self):
+        """Tests for initalization value of public attributes"""
+        self.assertEqual(State.name, "")
+
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
         ct = State()

@@ -74,6 +74,13 @@ class Test_US_Instantiation(unittest.TestCase):
         self.assertEqual(type(User.first_name), str)
         self.assertEqual(type(User.last_name), str)
 
+    def test_type_initialization(self):
+        """Tests for initialization value of public attributes"""
+        self.assertEqual(User.email, "")
+        self.assertEqual(User.password, "")
+        self.assertEqual(User.first_name, "")
+        self.assertEqual(User.last_name, "")
+
     def test_time_datatype(self):
         """Test the type of created_at and updated_at"""
         ct = User()
