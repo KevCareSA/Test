@@ -5,6 +5,7 @@ Test module for base_model.py and the BaseModel class
 """
 
 import unittest
+from models.engine.file_storage import FileStorage
 from time import sleep
 import os
 from datetime import datetime
@@ -133,8 +134,8 @@ class Test_Serialization(unittest.TestCase):
     """Test object serialization and deserialization"""
 
     def tearDown(self):
-        if os.path.exists("file.json"):
-            os.remove("file.json")
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     def test_save_with_args(self):
         """Test if object is saved with multiple args"""
@@ -147,9 +148,9 @@ class Test_Serialization(unittest.TestCase):
         base.phonenum = "078 555 7832"
         base.income = 100100
         base.save()
-        self.assertTrue(os.path.exists("file.json"))
-        if os.path.exists("file.json"):
-            with open("file.json", "r") as file:
+        self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            with open(FileStorage._FileStorage__file_path, "r") as file:
                 contents = file.read()
                 self.assertGreater(len(contents), 0)
                 self.assertTrue(f'"BaseModel.{base.id}"' in contents)
