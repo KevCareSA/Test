@@ -34,6 +34,29 @@ class Test_FS_doc(unittest.TestCase):
         self.assertGreaterEqual(len(FileStorage.reload.__doc__), 1)
 
 
+class Test_instantiation(unittest.TestCase):
+    """Tests instances of FileStorage"""
+    def test_instances(self):
+        """Test for instances"""
+        fs = FileStorage()
+        self.assertEqual(type(fs), FileStorage)
+        self.assertFalse(isinstance(fs, BaseModel))
+
+        with self.assertRaises(TypeError):
+            FileStorage(self, 23442)
+
+    def test_private_attributes_exist(self):
+        """Test if private attributes exist"""
+        self.assertTrue(hasattr(storage, "_FileStorage__file_path"))
+        self.assertTrue(hasattr(storage, "_FileStorage__objects"))
+
+    def test_class_attr_types(self):
+        """Test private class attribute types"""
+        fs = FileStorage()
+        self.assertEqual(type(fs.all()), dict)
+        self.assertEqual(type(FileStorage._FileStorage__file_path), str)
+
+
 class Test_Functions(unittest.TestCase):
     """Tests the functions of FileStorage"""
 
@@ -47,7 +70,7 @@ class Test_Functions(unittest.TestCase):
         objdict = storage.all()
         self.assertEqual(FileStorage._FileStorage__objects, objdict)
 
-    def test_new(self):
+    def test_new_indirectly(self):
         """Tests the new functions dictionary assignment"""
         objdict = storage.all()
         for i in range(10):
@@ -57,6 +80,12 @@ class Test_Functions(unittest.TestCase):
                              self.base[i])
             self.assertEqual(objdict[f"User.{self.usr[i].id}"], self.usr[i])
 
+    def test_new_multiple_args(self):
+        """Tests new function with muliple args"""
+        fs = FileStorage()
+        with self.assertRaises(TypeError):
+            fs.new()
+
 
 class Test_Save_Reload(unittest.TestCase):
     """Test the serialization and deserializatin of json files
@@ -64,7 +93,7 @@ class Test_Save_Reload(unittest.TestCase):
     """
     def setUp(self):
         """initializes objects to save"""
-        self.base = BaseModel
+        self.base = BaseModel()
 
     def tearDown(self):
         """the tear down method that activates when a function is finished
@@ -78,6 +107,28 @@ class Test_Save_Reload(unittest.TestCase):
         """check if saving creates file"""
         storage.save()
         self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
+
+        with self.assertRaises(TypeError):
+            storage.save(1234, 239)
+
+    def test_save_object_change(self):
+        filepath = FileStorage._FileStorage__file_path
+        b = BaseModel()
+        b.food = "Lasagna"
+        b.age = 22
+        b.altitude = 9000.52
+        b.save()
+        if os.path.exists(filepath):
+            with open(filepath, "r") as file:
+                content = file.read()
+                self.assertTrue('"Lasagna"' in content)
+                self.assertTrue('"food"' in content)
+                self.assertTrue('"age"' in content)
+                self.assertTrue('22' in content)
+                self.assertFalse('"22"' in content)
+                self.assertTrue('"altitude"' in content)
+                self.assertTrue('9000.52' in content)
+                self.assertFalse('"9000.52"' in content)
 
 
 if __name__ == '__main__':
