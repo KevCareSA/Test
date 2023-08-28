@@ -1,17 +1,16 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_node - deletes binary tree from heap using post-order traversal
- * @parent: pointer to the parent node
- * @value: value of the node
- * Return: return address of new right child
+ * binary_tree_delete - frees binary tree from heap using post-order traversal
+ * @tree: pointer to the root node
  */
 
 void binary_tree_delete(binary_tree_t *tree)
 {
-    if (tree != NULL) {
-        binary_tree_delete(tree->left);
-        binary_tree_delete(tree->right);
-        free(tree);
-    }
+	if (tree != NULL)
+	{
+		binary_tree_delete(tree->left);
+		binary_tree_delete(tree->right);
+		free(tree);
+	}
 }
