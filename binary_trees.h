@@ -47,10 +47,12 @@ void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int));
 void binary_tree_inorder(const binary_tree_t *tree, void (*func)(int));
 void binary_tree_postorder(const binary_tree_t *tree, void (*func)(int));
 
-/*height, depth and sizee*/
+/*height, depth, size, number of leaves*/
 size_t binary_tree_height(const binary_tree_t *tree);
 size_t number_of_nodes(const binary_tree_t *tree, size_t lh, size_t rh);
 size_t binary_tree_depth(const binary_tree_t *tree);
 size_t binary_tree_size(const binary_tree_t *tree);
+size_t calculate_size(const binary_tree_t *tree, size_t size);
+size_t binary_tree_leaves(const binary_tree_t *tree);
 
 #endif /*BINARY_TREES_H*/
