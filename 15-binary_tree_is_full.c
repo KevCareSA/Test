@@ -27,5 +27,8 @@ int full_check(const binary_tree_t *tree, int full)
 int binary_tree_is_full(const binary_tree_t *tree)
 {
 	int full = 1;
+
+	if (tree == NULL)
+		return (0);
 	return (full_check(tree, full));
 }
