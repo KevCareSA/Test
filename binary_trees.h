@@ -40,7 +40,7 @@ void binary_tree_print(const binary_tree_t *);
  */
 typedef struct queue_s
 {
-	binary_tree_t *node;
+	const binary_tree_t *node;
 	struct queue_s *next;
 	struct queue_s *prev;
 } queue;
