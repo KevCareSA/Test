@@ -5,7 +5,7 @@
  * @tail: end of the queue
  * @node: node to be queued
  * Return: address of new node or NULL if fails
- **/
+ */
 queue *enqueue(queue **tail, const binary_tree_t *node)
 {
 	queue *new;
@@ -33,7 +33,7 @@ queue *enqueue(queue **tail, const binary_tree_t *node)
  * dequeue - applies func on item then deletes item from queue
  * @head: start of queue
  * @func: function pointer
- **/
+ */
 void dequeue(queue **head, void (*func)(int))
 {
 	queue *temp;
@@ -49,7 +49,7 @@ void dequeue(queue **head, void (*func)(int))
  *                          each node
  * @tree: root node of binary tree
  * @func: function pointer
- **/
+ */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
 	queue *head = NULL, *tail = NULL;
