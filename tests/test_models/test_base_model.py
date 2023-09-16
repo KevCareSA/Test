@@ -45,7 +45,7 @@ class test_basemodel(unittest.TestCase):
         copy = i.to_dict()
         copy.update({1: 2})
         with self.assertRaises(TypeError):
-            BaseModel(**copy)
+            new = BaseModel(**copy)
 
     def test_save(self):
         """ Testing save """
@@ -72,13 +72,13 @@ class test_basemodel(unittest.TestCase):
         """ """
         n = {None: None}
         with self.assertRaises(TypeError):
-            self.value(**n)
+            new = self.value(**n)
 
     def test_kwargs_one(self):
         """ """
         n = {'Name': 'test'}
         with self.assertRaises(KeyError):
-            self.value(**n)
+            new = self.value(**n)
 
     def test_id(self):
         """ """
