@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-import re
+from re import search, sub
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -127,14 +127,14 @@ class HBNBCommand(cmd.Cmd):
         if (len(args) > 1):
             for entries in args[1:]:
                 try:
-                    key = re.search(r'\S+(?=\=)', entries)
-                    value = re.search(r'(?<=\=)\S+', entries)
+                    key = search(r'\S+(?=\=)', entries)
+                    value = search(r'(?<=\=)\S+', entries)
                     key = key.group()
                     value = eval(value.group())
                     if type(value) not in (str, float, int):
                         raise TypeError
                     if (type(value) == str):
-                        value = re.sub(r'_', ' ', value)
+                        value = sub(r'_', ' ', value)
                     setattr(new_instance, key, value)
                 except Exception:
                     pass
