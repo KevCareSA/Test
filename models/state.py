@@ -10,8 +10,9 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """ State class """
-    name = Column(String(length=128), ForeignKey('states.id'),
-                  nullable=False)
+    __tablename__ = "states"
+
+    name = Column(String(length=128), nullable=False)
     # Define the one-to-many relationship with City
     cities = relationship("City", backref="state",
                           cascade="all, delete-orphan")
