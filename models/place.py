@@ -16,13 +16,13 @@ class Place(BaseModel, Base):
         user_id = Column(String(length=60), ForeignKey('users.id'),
                          nullable=False)
         name = Column(String(length=128), nullable=False)
-        description = Column(String(length=1024), nullable=False)
+        description = Column(String(length=1024), nullable=True)
         number_rooms = Column(Integer, default=0, nullable=False)
         number_bathrooms = Column(Integer, default=0, nullable=False)
         max_guest = Column(Integer, default=0, nullable=False)
         price_by_night = Column(Integer, default=0, nullable=False)
-        latitude = Column(Float, nullable=False)
-        longitude = Column(Float, nullable=False)
+        latitude = Column(Float, nullable=True)
+        longitude = Column(Float, nullable=True)
     else:
         city_id = ""
         user_id = ""
