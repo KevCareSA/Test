@@ -23,11 +23,11 @@ class FileStorage:
         if cls is not None:
             if type(cls) == str:
                 cls = eval(cls)
-            cls_dict = {}
-            for k, v in self.__objects.items():
-                if type(v) == cls:
-                    cls_dict[k] = v
-            return cls_dict
+            objdict = {}
+            for key, value in self.__objects.items():
+                if type(value) == cls:
+                    objdict[key] = value
+            return objdict
         return self.__objects
 
     def new(self, obj):
@@ -43,21 +43,21 @@ class FileStorage:
     def reload(self):
         """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
-            with open(self.__file_path, "r", encoding="utf-8") as f:
-                for o in json.load(f).values():
-                    name = o["__class__"]
-                    del o["__class__"]
-                    self.new(eval(name)(**o))
+            with open(self.__file_path, "r", encoding="utf-8") as file:
+                for obj in json.load(file).values():
+                    name = obj["__class__"]
+                    del obj["__class__"]
+                    self.new(eval(name)(**obj))
         except FileNotFoundError:
             pass
 
     def delete(self, obj=None):
-        """Delete a given object from __objects, if it exists."""
+        """Delete object obj from object dictionary __objects"""
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
             pass
 
     def close(self):
-        """Call the reload method."""
+        """refresh the object dictionary with new contents"""
         self.reload()
