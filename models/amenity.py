@@ -8,7 +8,13 @@ from sqlalchemy.orm import relationship
 
 
 class Amenity(BaseModel, Base):
-    """Represents an Amenity for a MySQL database.
+    """Blueprint for a Review Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks Amenities.
+        name (sqlalchemy.String): The name of the city
+        places_amenities (sqlalchemy.Relationship): Entails many-to-many
+        relationship with a place
     """
     __tablename__ = "amenities"
     name = Column(String(128), nullable=False)

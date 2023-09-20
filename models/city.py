@@ -9,7 +9,13 @@ from sqlalchemy.orm import relationship
 
 
 class City(BaseModel, Base):
-    """Represents a city for a MySQL database..
+    """Blueprint for a Review Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks cities.
+        name (sqlalchemy.String): The name of the city
+        state_id (sqlalchemy.String): A Foreign key reference to city id's
+        places (sqlalchemy.Relationship): Entails the Place<->City relationship
     """
     __tablename__ = "cities"
     name = Column(String(128), nullable=False)

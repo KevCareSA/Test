@@ -11,7 +11,13 @@ from sqlalchemy.orm import relationship
 
 
 class State(BaseModel, Base):
-    """Represents a state for a MySQL database.
+    """Blueprint for a State Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks states.
+        name (sqlalchemy.String): The name of the state
+        citites (sqlalchemy.Relationship): The State<->City of cities within
+                                           a state
     """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)

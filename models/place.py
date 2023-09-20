@@ -14,18 +14,42 @@ from sqlalchemy import String
 from sqlalchemy import Table
 from sqlalchemy.orm import relationship
 
-
-association_table = Table("place_amenity", Base.metadata,
-                          Column("place_id", String(60),
-                                 ForeignKey("places.id"),
-                                 primary_key=True, nullable=False),
-                          Column("amenity_id", String(60),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True, nullable=False))
+"""
+The association table allows the many-to-many relationship between a place and
+it's amenities
+"""
+association_table = Table(
+    "place_amenity", Base.metadata,
+    Column(
+        "place_id", String(60),
+        ForeignKey("places.id"),
+        primary_key=True, nullable=False
+           ),
+    Column(
+        "amenity_id", String(60),
+        ForeignKey("amenities.id"),
+        primary_key=True, nullable=False
+           )
+    )
 
 
 class Place(BaseModel, Base):
-    """Represents a Place for a MySQL database.
+    """Blueprint for a Place Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks reviews.
+        name (sqlalchemy.String): The name of the place
+        description (sqlalchemy.String): The description of place
+        city_id (sqlalchemy.String): A Foreign key reference to city id's
+        user_id (sqlalchemy.String): A Foreign key reference to user id's
+        number_rooms (sqlalchemy.Integer): Number of rooms in place
+        number_bathrooms (sqlalchemy.Integer): Number of bathrooms in place
+        max_guest (sqlalchemy.Integer): max guests allowed in place
+        price_by_night (sqlalchemy.Integer): cost of staying the night
+        latitude (sqlalchemy.Float): latitudinal position of a place
+        longitude (sqlalchemy.Float): longitudinal position of a place
+        reviews (sqlalchemy.Relationship): reviews related to a place
+        amenities (sqlalchemy.Relationship): amenities related to a place
     """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)

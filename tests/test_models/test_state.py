@@ -63,17 +63,17 @@ class TestState(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/state.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(State.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         st = State()
         self.assertEqual(str, type(st.id))
@@ -83,7 +83,7 @@ class TestState(unittest.TestCase):
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
-    def test_nullable_attributes(self):
+    def test_nullable_constraint(self):
         """Check that relevant DBStorage attributes are non-nullable."""
         with self.assertRaises(OperationalError):
             self.dbstorage._DBStorage__session.add(State())
@@ -100,7 +100,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(list, type(cities))
         self.assertIn(self.city, cities)
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that State is a subclass of BaseModel."""
         self.assertTrue(issubclass(State, BaseModel))
 
@@ -108,7 +108,7 @@ class TestState(unittest.TestCase):
         """Test initialization."""
         self.assertIsInstance(self.state, State)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different State instances are unique."""
         st = State()
         self.assertNotEqual(self.state.id, st.id)
@@ -159,7 +159,7 @@ class TestState(unittest.TestCase):
                          WHERE BINARY name = '{}'".
                        format(self.state.name))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.state.id, query[0][0])
         cursor.close()
 

@@ -9,7 +9,13 @@ from sqlalchemy.orm import relationship
 
 
 class Review(BaseModel, Base):
-    """Represents a review for a MySQL database.
+    """Blueprint for a Review Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks reviews.
+        text (sqlalchemy.String): The name of the state
+        place_id (sqlalchemy.String): A Foreign key reference to place id's
+        user_id (sqlalchemy.String): A Foreign key reference to users id's
     """
     __tablename__ = "reviews"
     text = Column(String(1024), nullable=False)

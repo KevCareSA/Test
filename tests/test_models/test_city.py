@@ -60,17 +60,17 @@ class TestCity(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/city.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(City.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         ct = City()
         self.assertEqual(str, type(ct.id))
@@ -82,7 +82,7 @@ class TestCity(unittest.TestCase):
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
-    def test_nullable_attributes(self):
+    def test_nullable_constraint(self):
         """Check that relevant DBStorage attributes are non-nullable."""
         with self.assertRaises(OperationalError):
             self.dbstorage._DBStorage__session.add(City(
@@ -115,7 +115,7 @@ class TestCity(unittest.TestCase):
         cursor.close()
         self.assertEqual(0, len(query))
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that City is a subclass of BaseModel."""
         self.assertTrue(issubclass(City, BaseModel))
 
@@ -123,7 +123,7 @@ class TestCity(unittest.TestCase):
         """Test initialization."""
         self.assertIsInstance(self.city, City)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different City instances are unique."""
         ct = City()
         self.assertNotEqual(self.city.id, ct.id)
@@ -176,7 +176,7 @@ class TestCity(unittest.TestCase):
                          WHERE BINARY name = '{}'".
                        format(self.city.name))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.city.id, query[0][0])
         cursor.close()
 

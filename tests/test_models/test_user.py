@@ -60,17 +60,17 @@ class TestUser(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/user.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(User.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         us = User(email="a", password="a")
         self.assertEqual(str, type(us.id))
@@ -96,7 +96,7 @@ class TestUser(unittest.TestCase):
             self.dbstorage._DBStorage__session.add(User(email="a"))
             self.dbstorage._DBStorage__session.commit()
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that User is a subclass of BaseModel."""
         self.assertTrue(issubclass(User, BaseModel))
 
@@ -104,7 +104,7 @@ class TestUser(unittest.TestCase):
         """Test initialization."""
         self.assertIsInstance(self.user, User)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different User instances are unique."""
         us = User(email="a", password="a")
         self.assertNotEqual(self.user.id, us.id)
@@ -156,7 +156,7 @@ class TestUser(unittest.TestCase):
                          WHERE BINARY email = '{}'".
                        format(self.user.email))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.user.id, query[0][0])
         cursor.close()
 

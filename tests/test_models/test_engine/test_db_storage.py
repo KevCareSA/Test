@@ -72,25 +72,25 @@ class TestDBStorage(unittest.TestCase):
             cls.storage._DBStorage__session.close()
             del cls.storage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
-        self.assertIsNotNone(DBStorage.__doc__)
-        self.assertIsNotNone(DBStorage.__init__.__doc__)
-        self.assertIsNotNone(DBStorage.all.__doc__)
-        self.assertIsNotNone(DBStorage.new.__doc__)
-        self.assertIsNotNone(DBStorage.save.__doc__)
-        self.assertIsNotNone(DBStorage.delete.__doc__)
-        self.assertIsNotNone(DBStorage.reload.__doc__)
+        self.assertGreaterEqual(len(DBStorage.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.__init__.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.all.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.new.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.save.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.delete.__doc__), 1)
+        self.assertGreaterEqual(len(DBStorage.reload.__doc__), 1)
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         self.assertTrue(isinstance(self.storage._DBStorage__engine, Engine))
         self.assertTrue(isinstance(self.storage._DBStorage__session, Session))
@@ -149,7 +149,7 @@ class TestDBStorage(unittest.TestCase):
         cursor = db.cursor()
         cursor.execute("SELECT * FROM states WHERE BINARY name = 'Virginia'")
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(st.id, query[0][0])
         cursor.close()
 

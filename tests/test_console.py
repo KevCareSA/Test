@@ -5,10 +5,10 @@ import pep8
 import unittest
 import models
 from unittest.mock import patch
-from io import StringIO
 from console import HBNBCommand
-from models.engine.db_storage import DBStorage
+from io import StringIO
 from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -54,13 +54,13 @@ class TestHBNBCommand(unittest.TestCase):
         except IOError:
             pass
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test Pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["console.py"])
         self.assertEqual(p.total_errors, 0, "fix Pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(HBNBCommand.__doc__)
         self.assertIsNotNone(HBNBCommand.emptyline.__doc__)
@@ -89,7 +89,7 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_EOF(self):
         """Test that EOF quits."""
-        with patch("sys.stdout", new=StringIO()) as f:
+        with patch("sys.stdout", new=StringIO()):
             self.assertTrue(self.HBNB.onecmd("EOF"))
 
     def test_create_errors(self):

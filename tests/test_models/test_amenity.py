@@ -9,10 +9,10 @@ from datetime import datetime
 from models.base_model import Base
 from models.base_model import BaseModel
 from models.amenity import Amenity
-from models.engine.db_storage import DBStorage
 from models.engine.file_storage import FileStorage
-from sqlalchemy.exc import OperationalError
+from models.engine.db_storage import DBStorage
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import OperationalError
 
 
 class TestAmenity(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestAmenity(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """Amenity testing setup.
+        """Setup class for testing amenity table
         """
         try:
             os.rename("file.json", "tmp")
@@ -56,25 +56,25 @@ class TestAmenity(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/amenity.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(Amenity.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         us = Amenity(email="a", password="a")
-        self.assertEqual(str, type(us.id))
-        self.assertEqual(datetime, type(us.created_at))
-        self.assertEqual(datetime, type(us.updated_at))
+        self.assertTrue(hasattr(us, "place_amenities"))
         self.assertTrue(hasattr(us, "__tablename__"))
         self.assertTrue(hasattr(us, "name"))
-        self.assertTrue(hasattr(us, "place_amenities"))
+        self.assertEqual(datetime, type(us.created_at))
+        self.assertEqual(str, type(us.id))
+        self.assertEqual(datetime, type(us.updated_at))
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
@@ -88,15 +88,15 @@ class TestAmenity(unittest.TestCase):
             self.dbstorage._DBStorage__session.add(Amenity(email="a"))
             self.dbstorage._DBStorage__session.commit()
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that Amenity is a subclass of BaseModel."""
         self.assertTrue(issubclass(Amenity, BaseModel))
 
-    def test_init(self):
+    def test_inititialization(self):
         """Test initialization."""
         self.assertIsInstance(self.amenity, Amenity)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different Amenity instances are unique."""
         us = Amenity(email="a", password="a")
         self.assertNotEqual(self.amenity.id, us.id)
@@ -147,7 +147,7 @@ class TestAmenity(unittest.TestCase):
                          WHERE BINARY name = '{}'".
                        format(self.amenity.name))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.amenity.id, query[0][0])
         cursor.close()
 

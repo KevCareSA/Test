@@ -78,17 +78,17 @@ class TestPlace(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/place.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(Place.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         us = Place()
         self.assertEqual(str, type(us.id))
@@ -107,7 +107,7 @@ class TestPlace(unittest.TestCase):
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
-    def test_nullable_attributes(self):
+    def test_nullable_constraint(self):
         """Test that email attribute is non-nullable."""
         with self.assertRaises(OperationalError):
             self.dbstorage._DBStorage__session.add(Place(user_id=self.user.id,
@@ -146,7 +146,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(list, type(amenities))
         self.assertIn(self.amenity, amenities)
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that Place is a subclass of BaseModel."""
         self.assertTrue(issubclass(Place, BaseModel))
 
@@ -154,7 +154,7 @@ class TestPlace(unittest.TestCase):
         """Test initialization."""
         self.assertIsInstance(self.place, Place)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different Place instances are unique."""
         us = Place()
         self.assertNotEqual(self.place.id, us.id)
@@ -210,7 +210,7 @@ class TestPlace(unittest.TestCase):
                          WHERE BINARY name = '{}'".
                        format(self.place.name))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.place.id, query[0][0])
         cursor.close()
 

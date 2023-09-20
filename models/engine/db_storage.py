@@ -17,6 +17,12 @@ from sqlalchemy.orm import sessionmaker
 
 class DBStorage:
     """Represents a database storage engine.
+
+    Attributes <PUBLIC>:
+        __engine (sqlalchemy.Engine): represents a key with necesarry details
+        to open a session with the database
+        __session (sqlalchemy.Session): allows us an open channel to query the
+        database
     """
 
     __engine = None
@@ -57,12 +63,12 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Delete obj from the current database session."""
+        """Delete obj/row from current session"""
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
-        """Create all tables in the database and initialize a new session."""
+        """Create all tables in the database"""
         Base.metadata.create_all(self.__engine)
         session_init = sessionmaker(bind=self.__engine,
                                     expire_on_commit=False)

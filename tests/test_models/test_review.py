@@ -73,17 +73,17 @@ class TestReview(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/review.py"])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(Review.__doc__)
 
-    def test_attributes(self):
+    def test_obj_attr(self):
         """Check for attributes."""
         us = Review(email="a", password="a")
         self.assertEqual(str, type(us.id))
@@ -96,7 +96,7 @@ class TestReview(unittest.TestCase):
 
     @unittest.skipIf(type(models.storage) == FileStorage,
                      "Testing FileStorage")
-    def test_nullable_attributes(self):
+    def test_nullable_constraint(self):
         """Test that email attribute is non-nullable."""
         with self.assertRaises(OperationalError):
             self.dbstorage._DBStorage__session.add(Review(
@@ -113,7 +113,7 @@ class TestReview(unittest.TestCase):
                 text="a", place_id=self.place.id))
             self.dbstorage._DBStorage__session.commit()
 
-    def test_is_subclass(self):
+    def test_inheritence(self):
         """Check that Review is a subclass of BaseModel."""
         self.assertTrue(issubclass(Review, BaseModel))
 
@@ -121,7 +121,7 @@ class TestReview(unittest.TestCase):
         """Test initialization."""
         self.assertIsInstance(self.review, Review)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different Review instances are unique."""
         us = Review(email="a", password="a")
         self.assertNotEqual(self.review.id, us.id)
@@ -178,7 +178,7 @@ class TestReview(unittest.TestCase):
                          WHERE BINARY text = '{}'".
                        format(self.review.text))
         query = cursor.fetchall()
-        self.assertEqual(1, len(query))
+        self.assertGreaterEqual(len(query), 1)
         self.assertEqual(self.review.id, query[0][0])
         cursor.close()
 

@@ -38,13 +38,13 @@ class TestBaseModel(unittest.TestCase):
         del cls.storage
         del cls.base
 
-    def test_pep8(self):
+    def test_pep8_styling(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["models/base_model.py"])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+        results = style.check_files(["models/base_model.py"])
+        self.assertEqual(results.total_errors, 0, "fix pep8")
 
-    def test_docstrings(self):
+    def test_docs(self):
         """Check for docstrings."""
         self.assertIsNotNone(BaseModel.__doc__)
         self.assertIsNotNone(BaseModel.__init__.__doc__)
@@ -59,19 +59,19 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(datetime, type(self.base.created_at))
         self.assertEqual(datetime, type(self.base.updated_at))
 
-    def test_methods(self):
+    def test_obj_attr(self):
         """Check for methods."""
         self.assertTrue(hasattr(BaseModel, "__init__"))
-        self.assertTrue(hasattr(BaseModel, "save"))
+        self.assertTrue(hasattr(BaseModel, "__str__"))
         self.assertTrue(hasattr(BaseModel, "to_dict"))
         self.assertTrue(hasattr(BaseModel, "delete"))
-        self.assertTrue(hasattr(BaseModel, "__str__"))
+        self.assertTrue(hasattr(BaseModel, "save"))
 
-    def test_init(self):
+    def test_initiliazation(self):
         """Test initialization."""
         self.assertIsInstance(self.base, BaseModel)
 
-    def test_two_models_are_unique(self):
+    def test_unique_uuid_generation(self):
         """Test that different BaseModel instances are unique."""
         bm = BaseModel()
         self.assertNotEqual(self.base.id, bm.id)
@@ -85,7 +85,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(bm.id, "5")
         self.assertEqual(bm.created_at, dt)
 
-    def test_str(self):
+    def test_str_representation(self):
         """Test __str__ representation."""
         s = str(self.base)
         self.assertIn("[BaseModel] ({})".format(self.base.id), s)
@@ -108,10 +108,10 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(dict, type(base_dict))
         self.assertEqual(self.base.id, base_dict["id"])
         self.assertEqual("BaseModel", base_dict["__class__"])
-        self.assertEqual(self.base.created_at.isoformat(),
-                         base_dict["created_at"])
         self.assertEqual(self.base.updated_at.isoformat(),
                          base_dict["updated_at"])
+        self.assertEqual(self.base.created_at.isoformat(),
+                         base_dict["created_at"])
         self.assertEqual(base_dict.get("_sa_instance_state", None), None)
 
     @unittest.skipIf(os.getenv("HBNB_ENV") is not None, "Testing DBStorage")
