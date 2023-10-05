@@ -4,7 +4,7 @@ __init__.py                                   place.py
 amenity.py                                    review.py
 base_model.py                                 state.py
 city.py                                       user.py
-    
+console.py
                                              ** models/engine/ **
 setup_mysql_dev.sql                             __init__.py
 setup_mysql_test.sql                            db_storage.py
